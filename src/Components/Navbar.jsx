@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 export default function Navbar() {
-  //   const { user, logOutUser } = useContext(AuthContext);
+  const { user, logOutUser } = useContext(AuthContext);
 
   const navbar = (
     <>
@@ -80,11 +82,11 @@ export default function Navbar() {
               // data-tooltip-content={user?.displayName}
               data-tooltip-place="top"
               className="w-full h-full object-cover"
-              // src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
+              src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
             />
           </div>
           <button
-            //   onClick={logOutUser}
+            onClick={logOutUser}
             className="btn btn-sm text-white bg-red-500 border border-red-500"
           >
             Logout
