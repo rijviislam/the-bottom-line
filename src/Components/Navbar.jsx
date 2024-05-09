@@ -1,3 +1,4 @@
+import { Tooltip } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -78,13 +79,12 @@ export default function Navbar() {
         ) : (
           <div className="flex gap-1 lg:gap-5 items-center justify-center">
             <div className="w-10 h-10  overflow-hidden rounded-full">
-              <img
-                data-tooltip-id="my-tooltip"
-                data-tooltip-content={user?.displayName}
-                data-tooltip-place="top"
-                className="w-full h-full object-cover"
-                src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
-              />
+              <Tooltip label={user?.displayName}>
+                <img
+                  className="w-full h-full object-cover"
+                  src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
+                />
+              </Tooltip>
             </div>
             <button
               onClick={logOutUser}
