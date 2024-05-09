@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 export default function Login() {
   const { loginUser, user } = useContext(AuthContext);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   console.log(user);
   const {
     register,
@@ -25,11 +25,11 @@ export default function Login() {
         console.error(error);
       });
   };
-  //   useEffect(() => {
-  //     if (user) {
-  //       navigate("/");
-  //     }
-  //   }, [user]);
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
   return (
     <div className="flex w-full items-center justify-center my-10 md:px-5">
       <div className="w-[1000px] flex flex-col lg:flex-row md:flex-row  px-5">

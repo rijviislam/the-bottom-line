@@ -62,36 +62,38 @@ export default function Navbar() {
       </div>
 
       <div className="navbar-end">
-        <div className="flex gap-1 lg:gap-3">
-          <Link to="/login">
-            <button className="btn btn-sm text-white  btn-primary">
-              Login
-            </button>
-          </Link>
-          <Link to="/register">
-            <button className="btn btn-sm text-white  btn-primary">
-              Register
-            </button>
-          </Link>
-        </div>
-
-        <div className="flex gap-1 lg:gap-5 items-center justify-center">
-          <div className="w-10 h-10  overflow-hidden rounded-full">
-            <img
-              data-tooltip-id="my-tooltip"
-              // data-tooltip-content={user?.displayName}
-              data-tooltip-place="top"
-              className="w-full h-full object-cover"
-              src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
-            />
+        {!user ? (
+          <div className="flex gap-1 lg:gap-3">
+            <Link to="/login">
+              <button className="btn btn-sm text-white  btn-primary">
+                Login
+              </button>
+            </Link>
+            <Link to="/register">
+              <button className="btn btn-sm text-white  btn-primary">
+                Register
+              </button>
+            </Link>
           </div>
-          <button
-            onClick={logOutUser}
-            className="btn btn-sm text-white bg-red-500 border border-red-500"
-          >
-            Logout
-          </button>
-        </div>
+        ) : (
+          <div className="flex gap-1 lg:gap-5 items-center justify-center">
+            <div className="w-10 h-10  overflow-hidden rounded-full">
+              <img
+                data-tooltip-id="my-tooltip"
+                data-tooltip-content={user?.displayName}
+                data-tooltip-place="top"
+                className="w-full h-full object-cover"
+                src={user?.photoURL || "https://i.ibb.co/HGCGmV3/OIP.jpg"}
+              />
+            </div>
+            <button
+              onClick={logOutUser}
+              className="btn btn-sm text-white bg-red-500 border border-red-500"
+            >
+              Logout
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
