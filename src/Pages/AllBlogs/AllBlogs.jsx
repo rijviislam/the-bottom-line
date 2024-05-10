@@ -36,7 +36,13 @@ export default function AllBlogs() {
   const handleWishlist = async (id) => {
     const wishlist = allblogs?.filter((blog) => blog._id !== id);
     setMywishlist(wishlist);
-    console.log(myWishlist, wishlist);
+    const isExistonWishlist = myWishlist?.some((item) => item._id === id);
+
+    if (isExistonWishlist) {
+      alert("This item is already added to your wishlist!");
+      return; // Prevent further processing if already in wishlist
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",
       headers: {
@@ -53,6 +59,12 @@ export default function AllBlogs() {
         }
         if (data.insertedId) {
           console.log("Data was Added SuccessFully!!");
+        } else {
+          console.warn("Unexpected response from server:", data);
+        }
+        if (data.error && data.error.code === 11000) {
+          alert("You can't add this Blog on you'r Wishlist right now!");
+          return;
         }
       });
   };
@@ -67,8 +79,43 @@ export default function AllBlogs() {
       </p>
     );
   return (
-    <div className="px-10">
+    <div className="px-10 flex flex-col items-center">
       <div>All Blogs {allblogs.length}</div>
+      <div className="flex justify-between  w-full my-5">
+        {" "}
+        <div>
+          <select
+            name="category"
+            id="category"
+            className="border p-4 rounded-lg"
+          >
+            <option value="">Filter By Category</option>
+            <option value="Travel">Travel</option>
+            <option value="Health and Fitness">Health and Fitness</option>
+            <option value="Finance">Finance</option>
+            <option value="Technology">Technology</option>
+            <option value="Photography">Photography</option>
+            <option value="Education and Learning">
+              Education and Learning
+            </option>
+          </select>
+        </div>
+        <form>
+          <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
+            <input
+              className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
+              type="text"
+              name="search"
+              placeholder="Enter Job Title"
+              aria-label="Enter Job Title"
+            />
+
+            <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
       <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {allblogs?.map((blog) => (
           <div key={blog._id}>
@@ -107,7 +154,7 @@ export default function AllBlogs() {
                     Details
                   </Button>
                   <Button
-                    onClick={() => handleWishlist(blog._id)}
+                    // onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
                     className="text-black border border-red-600"
                   >
