@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+import useAuth from "../../Hooks/useAuth";
 
 export default function AddBlog() {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const email = user?.email;
   const [category, setCategory] = useState([]);
 

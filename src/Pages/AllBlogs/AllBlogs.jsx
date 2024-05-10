@@ -13,7 +13,7 @@ import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect, useState } from "react";
 
 export default function AllBlogs() {
-  const [myWishlist, setMywishlist] = useState({});
+  const [myWishlist, setMywishlist] = useState([]);
   const {
     data: allblogs = [],
     isError,
@@ -34,25 +34,28 @@ export default function AllBlogs() {
   };
 
   const handleWishlist = async (id) => {
-    const wishlist = allblogs?.filter((blog) => blog._id === id);
-    wishlist.map((list) => setMywishlist(list));
-
+    const wishlist = allblogs?.filter((blog) => blog._id !== id);
+    setMywishlist(wishlist);
+    console.log(myWishlist, wishlist);
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(myWishlist),
+      body: JSON.stringify(wishlist[0]),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        if (data.insertedId === id) {
+          console.log("already added your wishlist");
+          return;
+        }
         if (data.insertedId) {
           console.log("Data was Added SuccessFully!!");
         }
       });
   };
-  console.log(myWishlist);
   if (isLoading) return <Spinner size="xl" />;
   if (isError || error) {
     console.log(isError, error);
@@ -68,7 +71,7 @@ export default function AllBlogs() {
       <div>All Blogs {allblogs.length}</div>
       <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {allblogs?.map((blog) => (
-          <>
+          <div key={blog._id}>
             <Card maxW="sm" className="shadow-xl">
               <CardBody>
                 <img
@@ -99,7 +102,6 @@ export default function AllBlogs() {
                 >
                   <Button
                     variant="solid"
-                    colorScheme="blue"
                     className="text-black border border-red-600"
                   >
                     Details
@@ -107,7 +109,6 @@ export default function AllBlogs() {
                   <Button
                     onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
-                    colorScheme="blue"
                     className="text-black border border-red-600"
                   >
                     Wishlist
@@ -115,7 +116,7 @@ export default function AllBlogs() {
                 </ButtonGroup>
               </CardFooter>
             </Card>
-          </>
+          </div>
         ))}
       </div>
     </div>
