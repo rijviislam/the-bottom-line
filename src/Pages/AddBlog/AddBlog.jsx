@@ -1,20 +1,55 @@
+import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+
 export default function AddBlog() {
+  const { user } = useContext(AuthContext);
+  const email = user?.email;
+  const [category, setCategory] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    const { image, title, category, shortdescription, longdescription, email } =
+      data;
+
+    fetch(`${import.meta.env.VITE_API_URL}/allblogs`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          console.log("Data was Added SuccessFully!!");
+          reset();
+        }
+      });
+  };
+
   return (
     <div className="flex bg-base-100 items-center justify-center lg:w-full my-5">
       <div className="flex flex-col items-center lg:w-10/12  p-6 rounded-md sm:p-10  text-gray-100 dark:text-gray-800 w-[360px]">
         <div className="mb-8 text-center w-full">
           <h1 className="my-3 text-4xl font-bold dark:text-violet-600">
-            Add your craft item
+            Add your Blog
           </h1>
         </div>
         <form
-          // onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate=""
           action=""
           className="space-y-6 rounded-lg p-5 lg:p-10 bg-slate-300 lg:w-[800px]  md:w-[600px] w-[360px]"
         >
           <div className=" flex items-start gap-5">
-            <div className="w-1/2">
+            <div className="w-full lg:gap-5 md:gap-3 gap-2 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
               <div>
                 <label htmlFor="image" className="block mb-2 text-sm">
                   Image
@@ -24,30 +59,30 @@ export default function AddBlog() {
                   name="image"
                   id="image"
                   placeholder="use image URL"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("image", { required: true })}
+                  className="w-full h-[50px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none"
+                  {...register("image", { required: true })}
                 />
-                {/* {errors.image && (
-                <span className="text-red-500">This field is required</span>
-              )} */}
+                {errors.image && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div>
                 <div className="flex justify-between mb-2">
                   <label htmlFor="Item Name" className="text-sm">
-                    Item Name
+                    Title
                   </label>
                 </div>
                 <input
-                  type="name"
-                  name="itemName"
-                  id="itemName"
-                  placeholder="Item Name"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("name", { required: true })}
+                  type="title"
+                  name="title"
+                  id="title"
+                  placeholder="Title"
+                  className="w-full h-[50px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none"
+                  {...register("title", { required: true })}
                 />
-                {/* {errors.name && (
-                <span className="text-red-500">This field is required</span>
-              )} */}
+                {errors.title && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div>
                 <div className="flex justify-between mb-2">
@@ -55,46 +90,46 @@ export default function AddBlog() {
                     Short Description
                   </label>
                 </div>
-                <input
+                <textarea
                   type="shortdescription"
                   name="shortdescription"
                   id="shortdescription"
                   placeholder="short description"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("shortdescription", { required: true })}
+                  className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
+                  {...register("shortdescription", { required: true })}
                 />
-                {/* {errors.shortdescription && (
-                <span className="text-red-500">This field is required</span>
-              )} */}
+                {errors.shortdescription && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
               <div>
                 <div className="flex justify-between mb-2">
-                  <label htmlFor="price" className="text-sm">
-                    Price
+                  <label htmlFor="longdescription" className="text-sm">
+                    Long Description
                   </label>
                 </div>
-                <input
-                  type="price"
-                  name="price"
-                  id="price"
-                  placeholder="Price"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("price", { required: true })}
+                <textarea
+                  type="longdescription"
+                  name="longdescription"
+                  id="longdescription"
+                  placeholder="Long Description"
+                  className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
+                  {...register("longshortdescription", { required: true })}
                 />
-                {/* {errors.price && (
-                <span className="text-red-500">This field is required</span>
-              )} */}
+                {errors.longshortdescription && (
+                  <span className="text-red-500">This field is required</span>
+                )}
               </div>
 
               <div className="flex flex-col">
-                <h2 className="text-sm">Subcategory Name</h2>
+                <h2 className="text-sm">Category</h2>
                 <select
-                  id="fruits"
-                  defaultValue="Select Subcategory"
-                  name="subcategory_Name"
-                  className="bg-white p-2 outline-none rounded-md text-gray-500"
-                  // onChange={(e) => setSubcategory_Name(e.target.value)}
-                  // {...register("subcategory_Name", { required: true })}
+                  id="category"
+                  defaultValue="Category"
+                  name="category"
+                  className="bg-white p-2 h-[50px] outline-none rounded-md text-gray-500"
+                  onChange={(e) => setCategory(e.target.value)}
+                  {...register("category", { required: true })}
                 >
                   <option value="Landscape Painting">Landscape Painting</option>
                   <option value="Portrait Drawing">Portrait Drawing</option>
@@ -106,166 +141,20 @@ export default function AddBlog() {
                   <option value="Cartoon Drawing">Cartoon Drawing</option>
                 </select>
               </div>
-            </div>
-            <div className="w-1/2 space-y-2">
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label htmlFor="rating" className="text-sm">
-                    Rating
-                  </label>
-                </div>
+              <div className="flex items-center gap-2">
                 <input
-                  type="rating"
-                  name="rating"
-                  id="rating"
-                  placeholder="rating"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("rating", { required: true })}
+                  id="email"
+                  type="hidden"
+                  defaultValue={email}
+                  name="email"
+                  {...register("email")}
                 />
-              </div>
-              {/* {errors.rating && (
-              <span className="text-red-500">This field is required</span>
-            )} */}
-              <div>
-                <div className="flex justify-between mb-2">
-                  <label htmlFor="processing_time" className="text-sm">
-                    Processing Time
-                  </label>
-                </div>
-                <input
-                  type="processing_time"
-                  name="processing_time"
-                  id="processing_time"
-                  placeholder="Processing Time"
-                  className="w-full px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800"
-                  // {...register("processing_time", { required: true })}
-                />
-              </div>
-              {/* {errors.processing_time && (
-              <span className="text-red-500">This field is required</span>
-            )} */}
-
-              <div className="flex flex-col lg:gap-5 ">
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <label htmlFor="customization" className="text-sm">
-                      customization
-                    </label>
-                  </div>
-                  <div className="flex gap-3 lg:gap-8 flex-col lg:flex-row md:flex-row">
-                    <div className="flex items-center gap-2">
-                      <label
-                        htmlFor="customization"
-                        className="text-sm font-semibold"
-                      >
-                        Yes
-                      </label>
-                      <input
-                        id="Yes"
-                        type="radio"
-                        value="Yes"
-                        name="radio-1"
-                        className="radio radio-primary"
-                        // {...register("customization")}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <label
-                        htmlFor="customization"
-                        className="text-sm font-semibold"
-                      >
-                        No
-                      </label>
-                      <input
-                        id="No"
-                        type="radio"
-                        value="No"
-                        name="radio-1"
-                        className="radio radio-primary"
-                        // {...register("customization")}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex justify-between mb-2">
-                    <label htmlFor="stockStatus" className="text-sm">
-                      Stock Status
-                    </label>
-                  </div>
-                  <div className="flex gap-3 lg:gap-8 flex-col lg:flex-row md:flex-row">
-                    <div className="flex items-center gap-2">
-                      <label
-                        htmlFor="stockStatus"
-                        className="text-sm font-semibold"
-                      >
-                        In Stock
-                      </label>
-                      <input
-                        id="in_stock"
-                        type="radio"
-                        value="in stock"
-                        name="radio-1"
-                        className="radio radio-primary"
-                        // {...register("stockStatus")}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <label
-                        htmlFor="stockStatus"
-                        className="text-sm font-semibold"
-                      >
-                        Made to Order
-                      </label>
-                      <input
-                        id="made_to_order"
-                        type="radio"
-                        value="made to order"
-                        name="radio-1"
-                        className="radio radio-primary"
-                        // {...register("stockStatus")}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex gap-8">
-                    <div className="flex items-center gap-2">
-                      <input
-                        id="email"
-                        type="hidden"
-                        // defaultValue={email}
-                        name="email"
-                        // {...register("email")}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <input
-                        id="displayName"
-                        type="hidden"
-                        // defaultValue={displaName}
-                        name="displayName"
-                        // {...register("displayName")}
-                      />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <input
-                        id="userImage"
-                        type="hidden"
-                        // defaultValue={userImage}
-                        name="userImage"
-                        // {...register("userImage")}
-                      />
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
 
           <button className="block w-full p-3 text-center rounded-sm text-gray-900 dark:text-gray-50 bg-violet-400 dark:bg-violet-600">
-            Add Craft
+            Add Blog
           </button>
         </form>
       </div>
