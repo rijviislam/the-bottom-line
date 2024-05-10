@@ -131,14 +131,14 @@ export default function AddBlog() {
                   onChange={(e) => setCategory(e.target.value)}
                   {...register("category", { required: true })}
                 >
-                  <option value="Landscape Painting">Landscape Painting</option>
-                  <option value="Portrait Drawing">Portrait Drawing</option>
-                  <option value="Watercolour Painting">
-                    Watercolour Painting
+                  <option value="Travel">Travel</option>
+                  <option value="Health and Fitness">Health and Fitness</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Photography">Photography</option>
+                  <option value="Education and Learning">
+                    Education and Learning
                   </option>
-                  <option value="Oil Painting">Oil Painting</option>
-                  <option value="Charcoal Sketching">Charcoal Sketching</option>
-                  <option value="Cartoon Drawing">Cartoon Drawing</option>
                 </select>
               </div>
               <div className="flex items-center gap-2">

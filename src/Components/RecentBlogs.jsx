@@ -70,14 +70,14 @@ export default function RecentBlogs() {
                     colorScheme="blue"
                     className="text-black border border-red-600"
                   >
-                    Buy now
+                    Details
                   </Button>
                   <Button
                     variant="ghost"
                     colorScheme="blue"
                     className="text-black border border-red-600"
                   >
-                    Add to cart
+                    Wishlist
                   </Button>
                 </ButtonGroup>
               </CardFooter>
