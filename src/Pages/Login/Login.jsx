@@ -2,11 +2,11 @@ import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import SocialLogin from "../../Components/SocialLogin";
 
 export default function Login() {
   const { loginUser, user } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(user);
   const {
     register,
     handleSubmit,
@@ -21,8 +21,8 @@ export default function Login() {
 
         reset();
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(() => {
+        alert("Authentication fails with your email and password");
       });
   };
   useEffect(() => {
@@ -93,6 +93,7 @@ export default function Login() {
             </p>
             <div className="flex-1 h-px sm:w-16 bg-gray-700 dark:bg-gray-300"></div>
           </div>
+          <SocialLogin />
           <p className="text-xs text-center sm:px-6 text-gray-400 dark:text-gray-600">
             Don't have an account?
             <Link
