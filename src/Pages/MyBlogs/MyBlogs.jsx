@@ -32,6 +32,14 @@ export default function MyBlogs() {
   //     },
   //   ];
   //   const table = useReactTable({ data, columns });
+  if (myBlog.length === 0) {
+    return (
+      <p className="text-3xl font-semibold text-red-600 w-full text-center">
+        You Don't have any Blog <br />
+        Because you can't added any Blogs
+      </p>
+    );
+  }
   return (
     <div>
       <div>MyBlogs {myBlog.length}</div>

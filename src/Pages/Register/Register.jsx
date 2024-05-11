@@ -13,6 +13,19 @@ export default function Register() {
   } = useForm();
   const onSubmit = (data) => {
     const { name, email, password, image } = data;
+    setRegError("");
+    if (!/^.{6,}$/.test(password)) {
+      return alert("Password must be at least 6 characters long");
+    }
+    if (!/[A-Z]/.test(password)) {
+      return alert("Password must contain at least one uppercase letter");
+    }
+    if (!/[!@#$%^&*]/.test(password)) {
+      return alert("Password must contain at least one special character");
+    }
+    if (!/\d/.test(password)) {
+      return alert("Password must contain at least one numeric character");
+    }
 
     createUser(email, password)
       .then((res) => {
@@ -25,6 +38,9 @@ export default function Register() {
       })
       .catch((error) => {
         setRegError(error.message);
+        if (regError) {
+          alert("Can't Register with this email and password!");
+        }
       });
   };
   return (

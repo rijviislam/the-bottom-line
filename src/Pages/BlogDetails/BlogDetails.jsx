@@ -20,7 +20,6 @@ export default function BlogDetails() {
     getData();
   }, [id]);
 
-  // console.log({ details });
   const { title, image, shortdescription, longshortdescription } = details;
 
   useEffect(() => {
