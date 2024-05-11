@@ -10,7 +10,7 @@ export default function NewsLetter() {
   const onSubmit = (data) => {
     console.log(data);
     reset();
-    console.log("Data was Added SuccessFully!!");
+    alert("Thank You for Subscribe!!");
   };
   return (
     <div className=" text-center  flex flex-col items-center lg:py-5 lg:my-10">

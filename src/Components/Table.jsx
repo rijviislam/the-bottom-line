@@ -10,7 +10,10 @@ export default function Table({ blog, idx }) {
         <td>{title}</td>
         <td>{shortdescription}</td>
         <td>
-          <Link to={`/updateblog/${_id}`} className="btn text-xs bg-teal-800">
+          <Link
+            to={`/updateblogpage/${_id}`}
+            className="btn text-xs bg-teal-800"
+          >
             Update Blogs
           </Link>
         </td>

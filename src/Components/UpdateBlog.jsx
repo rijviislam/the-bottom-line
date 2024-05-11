@@ -21,7 +21,7 @@ export default function UpdateBlog() {
     getData();
   }, [id]);
   console.log(blog);
-
+  const { _id } = blog;
   const {
     register,
     handleSubmit,
@@ -31,22 +31,21 @@ export default function UpdateBlog() {
   const onSubmit = (data) => {
     const { title, category, shortdescription, longdescription } = data;
 
-    // fetch(`${import.meta.env.VITE_API_URL}/allblogs`, {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.insertedId) {
-    //       console.log("Data was Added SuccessFully!!");
-    //       reset();
-    //     }
-    //   });
-
+    fetch(`${import.meta.env.VITE_API_URL}/blogupdated/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          console.log("Blog was Updated SuccessFully!!");
+          reset();
+        }
+      });
     setDefaultData(data);
   };
   console.log(defaultData);
