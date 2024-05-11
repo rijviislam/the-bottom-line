@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import UpdateBlog from "../Components/UpdateBlog";
 import Layout from "../Layout/Layout";
 import AddBlog from "../Pages/AddBlog/AddBlog";
 import AllBlogs from "../Pages/AllBlogs/AllBlogs";
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "/blogdetails/:id",
         element: <BlogDetails />,
+      },
+      {
+        path: "/updateblog/:id",
+        element: <UpdateBlog />,
       },
     ],
   },
