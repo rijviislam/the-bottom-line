@@ -42,7 +42,10 @@ export default function RecentBlogs() {
   return (
     <div className="px-10">
       <div>RecentBlogs {recentblog.length}</div>
-      <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div
+        className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
+        key={recentblog._id}
+      >
         {recentblog?.slice(0, 6).map((blog) => (
           <>
             <Card maxW="sm" className="border-2 border-red-700 shadow-xl">
@@ -67,14 +70,12 @@ export default function RecentBlogs() {
                 >
                   <Button
                     variant="solid"
-                    colorScheme="blue"
                     className="text-black border border-red-600"
                   >
                     Details
                   </Button>
                   <Button
                     variant="ghost"
-                    colorScheme="blue"
                     className="text-black border border-red-600"
                   >
                     Wishlist

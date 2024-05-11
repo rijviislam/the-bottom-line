@@ -11,9 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function AllBlogs() {
-  const [myWishlist, setMywishlist] = useState([]);
+  // const [myWishlist, setMywishlist] = useState([]);
+  const [filter, setFilter] = useState([]);
+  const [search, setSearch] = useState("");
   const {
     data: allblogs = [],
     isError,
@@ -27,21 +30,25 @@ export default function AllBlogs() {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [filter, search]);
   const getData = async () => {
-    const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
+    const { data } = await axios(
+      `${
+        import.meta.env.VITE_API_URL
+      }/allblogs?filter=${filter}&search=${search}`
+    );
     return data;
   };
 
-  const handleWishlist = async (id) => {
-    const wishlist = allblogs?.filter((blog) => blog._id !== id);
-    setMywishlist(wishlist);
-    const isExistonWishlist = myWishlist?.some((item) => item._id === id);
+  // const filterCategory = (categorys) => {
+  //   const blogs = allblogs.map((blog) => {
+  //     return blog.category === categorys;
+  //   });
+  //   setFilter(blogs);
+  // };
 
-    if (isExistonWishlist) {
-      alert("This item is already added to your wishlist!");
-      return; // Prevent further processing if already in wishlist
-    }
+  const handleWishlist = async (id) => {
+    const wishlist = allblogs?.filter((blog) => blog._id === id);
 
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",
@@ -53,19 +60,19 @@ export default function AllBlogs() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.insertedId === id) {
-          console.log("already added your wishlist");
-          return;
-        }
-        if (data.insertedId) {
-          console.log("Data was Added SuccessFully!!");
-        } else {
-          console.warn("Unexpected response from server:", data);
-        }
-        if (data.error && data.error.code === 11000) {
-          alert("You can't add this Blog on you'r Wishlist right now!");
-          return;
-        }
+        // if (data.insertedId === id) {
+        //   console.log("already added your wishlist");
+        //   return;
+        // }
+        // if (data.insertedId) {
+        //   console.log("Data was Added SuccessFully!!");
+        // } else {
+        //   console.warn("Unexpected response from server:", data);
+        // }
+        // if (data.error && data.error.code === 11000) {
+        //   alert("You can't add this Blog on you'r Wishlist right now!");
+        //   return;
+        // }
       });
   };
   if (isLoading) return <Spinner size="xl" />;
@@ -78,13 +85,22 @@ export default function AllBlogs() {
         No Blog Avaiable right now!
       </p>
     );
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const text = e.target.search.value;
+    setSearch(text);
+  };
   return (
     <div className="px-10 flex flex-col items-center">
-      <div>All Blogs {allblogs.length}</div>
+      <div>All Blogs {filter.length}</div>
       <div className="flex justify-between  w-full my-5">
         {" "}
         <div>
           <select
+            //  onChange={(e) => setFilter(e.target.value)}
+
+            // value={filter}
             name="category"
             id="category"
             className="border p-4 rounded-lg"
@@ -100,7 +116,7 @@ export default function AllBlogs() {
             </option>
           </select>
         </div>
-        <form>
+        <form onSubmit={handleSearch}>
           <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
             <input
               className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
@@ -147,14 +163,15 @@ export default function AllBlogs() {
                   className="px-5 flex justify-between w-full pb-3"
                   spacing="2"
                 >
-                  <Button
+                  <Link
+                    to={`/blogdetails/${blog._id}`}
                     variant="solid"
                     className="text-black border border-red-600"
                   >
                     Details
-                  </Button>
+                  </Link>
                   <Button
-                    // onClick={() => handleWishlist(blog._id)}
+                    onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
                     className="text-black border border-red-600"
                   >

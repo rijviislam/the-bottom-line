@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import AddBlog from "../Pages/AddBlog/AddBlog";
 import AllBlogs from "../Pages/AllBlogs/AllBlogs";
+import BlogDetails from "../Pages/BlogDetails/BlogDetails";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import FeaturedBlogs from "../Pages/FeaturedBlogs/FeaturedBlogs";
 import Home from "../Pages/Home/Home";
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/blogdetails/:id",
+        element: <BlogDetails />,
       },
     ],
   },
