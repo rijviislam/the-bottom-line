@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 export default function RecentBlogs() {
   // const [recentBlog, setRecentBlog] = useState([]);
 
@@ -68,12 +69,13 @@ export default function RecentBlogs() {
                   className="px-5 flex justify-between w-full pb-3"
                   spacing="2"
                 >
-                  <Button
+                  <Link
+                    to={`/blogdetails/${blog._id}`}
                     variant="solid"
                     className="text-black border border-red-600"
                   >
                     Details
-                  </Button>
+                  </Link>
                   <Button
                     variant="ghost"
                     className="text-black border border-red-600"

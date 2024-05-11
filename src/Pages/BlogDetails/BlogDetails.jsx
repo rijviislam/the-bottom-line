@@ -22,15 +22,16 @@ export default function BlogDetails() {
 
   // console.log({ details });
   const { title, image, shortdescription, longshortdescription } = details;
-  console.log(details);
 
   useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/blogdetails`
+      );
+      setComments(data);
+    };
     getData();
   }, [user]);
-  const getData = async () => {
-    const { data } = await axios(`${import.meta.env.VITE_API_URL}/blogdetails`);
-    setComments(data);
-  };
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -41,7 +42,7 @@ export default function BlogDetails() {
     const commenterName = user?.displayName;
     const commenterPhoto = user?.photoURL;
     const comment = form.comment.value;
-    const commentData = { comment, commenterName, commenterPhoto };
+    const commentData = { comment, commenterName, commenterPhoto, id };
     // console.log(comment, commenterName, commenterPhoto);
 
     fetch(`${import.meta.env.VITE_API_URL}/blogdetails`, {
@@ -60,9 +61,6 @@ export default function BlogDetails() {
       });
   };
 
-  getData();
-
-  console.log(comments);
   return (
     <div className="flex flex-col gap-5 items-center">
       <h2 className="text-5xl">{title}</h2>
@@ -89,7 +87,7 @@ export default function BlogDetails() {
       </form>
       <div>
         {comments?.map((comment) => (
-          <Comment key={comment._id} comment={comment} />
+          <Comment key={comment._id} comment={comment} id={id} />
         ))}
       </div>
     </div>

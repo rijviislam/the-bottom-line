@@ -1,5 +1,7 @@
 export default function Comment({ comment }) {
   const { comment: mycmnt, commenterName, commenterPhoto } = comment;
+  // console.log(comment);
+  // console.log(id);
   return (
     <div>
       <div className="flex gap-2">
