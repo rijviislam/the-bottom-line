@@ -24,6 +24,9 @@ export default function Navbar() {
       <li className="text-sm font-semibold">
         <Link to="/wishlist">Wishlist</Link>
       </li>
+      <li className="text-sm font-semibold">
+        <Link to="/myblogs">My Blogs</Link>
+      </li>
     </>
   );
   return (

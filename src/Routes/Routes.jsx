@@ -7,6 +7,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import FeaturedBlogs from "../Pages/FeaturedBlogs/FeaturedBlogs";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import MyBlogs from "../Pages/MyBlogs/MyBlogs";
 import Register from "../Pages/Register/Register";
 import Wishlist from "../Pages/Wishlist/Wishlist";
 
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      {
+        path: "/myblogs",
+        element: <MyBlogs />,
       },
       {
         path: "/blogdetails/:id",
