@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
-export default function Navbar() {
+export default function MyNavbar() {
   const { user, logOutUser } = useContext(AuthContext);
 
   const navbar = (

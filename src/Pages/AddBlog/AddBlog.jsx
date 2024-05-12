@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 
 export default function AddBlog() {
   // const { user } = useContext(AuthContext);
-  const { user } = useAuth();
+  const { user, loader } = useAuth();
   const email = user?.email;
+  const userImage = user?.photoURL;
   const [category, setCategory] = useState([]);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,8 +20,15 @@ export default function AddBlog() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { image, title, category, shortdescription, longdescription, email } =
-      data;
+    const {
+      image,
+      title,
+      category,
+      shortdescription,
+      longdescription,
+      email,
+      userImage,
+    } = data;
 
     fetch(`${import.meta.env.VITE_API_URL}/allblogs`, {
       method: "POST",
@@ -27,14 +39,32 @@ export default function AddBlog() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
-          console.log("Data was Added SuccessFully!!");
+          Swal.fire({
+            title: "Data was Added SuccessFully!!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
           reset();
+          navigate("/allblogs");
         }
       });
   };
-
+  if (loader) {
+    return <Skeleton count={5} />;
+  }
   return (
     <div className="flex bg-base-100 items-center justify-center lg:w-full my-5">
       <div className="flex flex-col items-center lg:w-10/12  p-6 rounded-md sm:p-10  text-gray-100 dark:text-gray-800 w-[360px]">
@@ -47,7 +77,7 @@ export default function AddBlog() {
           onSubmit={handleSubmit(onSubmit)}
           noValidate=""
           action=""
-          className="space-y-6 rounded-lg p-5 lg:p-10 bg-slate-300 lg:w-[800px]  md:w-[600px] w-[360px]"
+          className="space-y-6 rounded-lg p-5 lg:p-10 shadow-2xl border-2 border-sliver lg:w-[800px]  md:w-[600px] w-[360px]"
         >
           <div className=" flex items-start gap-5">
             <div className="w-full lg:gap-5 md:gap-3 gap-2 grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1">
@@ -122,13 +152,13 @@ export default function AddBlog() {
                 )}
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col ">
                 <h2 className="text-sm">Category</h2>
                 <select
                   id="category"
                   defaultValue="Category"
                   name="category"
-                  className="bg-white p-2 h-[50px] outline-none rounded-md text-gray-500"
+                  className="bg-white p-2 h-[50px] outline-none rounded-md text-gray-500 border-2 mt-2 border-silver"
                   onChange={(e) => setCategory(e.target.value)}
                   {...register("category", { required: true })}
                 >

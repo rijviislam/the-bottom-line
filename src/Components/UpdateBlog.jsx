@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 // import { Button, ButtonToolbar, Form } from "rsuite";
 
@@ -11,6 +12,7 @@ export default function UpdateBlog() {
   const { id } = useParams();
   const [blog, setBlog] = useState([]);
   const [defaultData, setDefaultData] = useState();
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(
@@ -40,10 +42,25 @@ export default function UpdateBlog() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
-          console.log("Blog was Updated SuccessFully!!");
-          reset();
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Blog was Updated SuccessFully!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
+          navigate("/myblogs");
         }
       });
     setDefaultData(data);
@@ -52,60 +69,7 @@ export default function UpdateBlog() {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <h2 className="text-3xl">UpdateBlog{blog._id}</h2>
-      {/* <Form fluid className=" w-[600px]" onSubmit={handleSubmit(onSubmit)}>
-        <Form.Group controlId="category-1" className="">
-          <Form.ControlLabel>Category</Form.ControlLabel>
-          <Form.Control
-            name="category"
-            defaultValue={blog.category}
-            className="w-full h-[50px] border-2 border-black
-          "
-            {...register("category", { required: true })}
-          />
-        </Form.Group>
-        <Form.Group controlId="title-1">
-          <Form.ControlLabel>Title</Form.ControlLabel>
-          <Form.Control
-            name="title"
-            type="text"
-            defaultValue={blog.title}
-            className="w-full h-[50px] border-2 border-black
-          "
-            {...register("title", { required: true })}
-          />
-        </Form.Group>
-        <Form.Group controlId="password-1">
-          <Form.ControlLabel>Short Description</Form.ControlLabel>
-          <Form.Control
-            name="shortdescription"
-            type="text"
-            defaultValue={blog.shortdescription}
-            className="w-full h-[50px] border-2 border-black
-          "
-            {...register("shortdescription", { required: true })}
-          />
-        </Form.Group>
-        <Form.Group controlId="textarea-1">
-          <Form.ControlLabel>Long Description</Form.ControlLabel>
-          <Form.Control
-            rows={5}
-            name="longshortdescription"
-            defaultValue={blog.longshortdescription}
-            className="w-full h-[80px] border-2 border-black
-          "
-            {...register("longshortdescription", { required: true })}
-          />
-        </Form.Group>
-
-        <Form.Group>
-          <ButtonToolbar>
-            <Button appearance="primary" className="btn btn-active">
-              Submit
-            </Button>
-          </ButtonToolbar>
-        </Form.Group>
-      </Form> */}
+      <h2 className="text-3xl font-semibold py-4">{blog.title}</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
         <input
           placeholder="Title"

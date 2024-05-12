@@ -4,17 +4,19 @@ import {
   CardFooter,
   Divider,
   Heading,
-  Spinner,
   Stack,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function AllBlogs() {
-  // const [myWishlist, setMywishlist] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState([]);
   const [search, setSearch] = useState("");
   const {
@@ -33,9 +35,10 @@ export default function AllBlogs() {
   }, [filter, search]);
   const getData = async () => {
     const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
+    setBlogs(data);
     return data;
   };
-
+  console.log(blogs);
   // const filterCategory = (categorys) => {
   //   const blogs = allblogs.map((blog) => {
   //     return blog.category === categorys;
@@ -58,15 +61,30 @@ export default function AllBlogs() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
-          console.log("Data was Added SuccessFully!!");
+          Swal.fire({
+            title: "Added on your Wishlist!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
         }
       });
   };
-  if (isLoading) return <Spinner size="xl" />;
+  if (isLoading) return <Skeleton count={15} />;
   if (isError || error) {
-    console.log(isError, error);
+    alert(isError, error);
   }
   if (allblogs.length === 0)
     return (
@@ -82,7 +100,7 @@ export default function AllBlogs() {
   // };
   return (
     <div className="px-10 flex flex-col items-center">
-      <div>All Blogs {filter.length}</div>
+      <div>All Blogs {blogs.length}</div>
       <div className="flex justify-between  w-full my-5">
         {" "}
         <div>

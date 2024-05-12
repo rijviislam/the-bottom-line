@@ -11,6 +11,7 @@ import Login from "../Pages/Login/Login";
 import MyBlogs from "../Pages/MyBlogs/MyBlogs";
 import Register from "../Pages/Register/Register";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addblog",
-        element: <AddBlog />,
+        element: (
+          <PrivateRoute>
+            <AddBlog />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allblogs",
@@ -36,7 +41,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/wishlist",
-        element: <Wishlist />,
+        element: (
+          <PrivateRoute>
+            <Wishlist />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -48,11 +57,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/myblogs",
-        element: <MyBlogs />,
+        element: (
+          <PrivateRoute>
+            <MyBlogs />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/blogdetails/:id",
-        element: <BlogDetails />,
+        element: (
+          <PrivateRoute>
+            <BlogDetails />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/updateblogpage/:id",

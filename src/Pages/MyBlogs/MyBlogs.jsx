@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import Table from "../../Components/Table";
 import useAuth from "../../Hooks/useAuth";
 
 export default function MyBlogs() {
-  const { user } = useAuth();
+  const { user, loader } = useAuth();
   const [myBlog, setMyBlog] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const email = user?.email;
@@ -20,53 +22,12 @@ export default function MyBlogs() {
     setMyBlog(filteredMyBlogs);
   }, [blogs, email]);
   console.log(myBlog);
-  //   const data = useMemo(() => myBlog, []);
-  //   const columns = [
-  //     {
-  //       header: "category",
-  //       accessorykey: "_id",
-  //     },
-  //     {
-  //       header: "category",
-  //       accessorykey: "_id",
-  //     },
-  //   ];
-  //   const table = useReactTable({ data, columns });
-  if (myBlog.length === 0) {
-    return (
-      <p className="text-3xl font-semibold text-red-600 w-full text-center">
-        You Don't have any Blog <br />
-        Because you can't added any Blogs
-      </p>
-    );
+  if (loader) {
+    return <Skeleton count={5} />;
   }
   return (
     <div>
       <div>MyBlogs {myBlog.length}</div>
-      {/* <table>
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup._id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header._id}>
-                  {flexRender(
-                    header.colum.columnsDef.header,
-                    header.getContext()
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-          <tr>
-            <th>category</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>id</td>
-          </tr>
-        </tbody>
-      </table> */}
       <div>
         <div className="overflow-x-auto">
           <table className="table table-zebra">

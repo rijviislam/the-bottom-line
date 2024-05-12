@@ -9,22 +9,24 @@ import {
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 export default function Wishlist() {
   // const { user } = useContext(AuthContext);
-  const { user } = useAuth();
+  const { user, loader } = useAuth();
   const [myWishlistBlogs, setMyWishlistBlogs] = useState([]);
   useEffect(() => {
+    const getData = async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/wishlist/${user?.email}`
+      );
+      setMyWishlistBlogs(data);
+    };
     getData();
   }, [user]);
-  const getData = async () => {
-    const { data } = await axios(
-      `${import.meta.env.VITE_API_URL}/wishlist/${user?.email}`
-    );
-    setMyWishlistBlogs(data);
-  };
 
   const handleRemove = (_id) => {
     fetch(`${import.meta.env.VITE_API_URL}/wishlist/${_id}`, {
@@ -41,6 +43,10 @@ export default function Wishlist() {
         }
       });
   };
+
+  if (loader) {
+    return <Skeleton count={5} />;
+  }
 
   return (
     <>

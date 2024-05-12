@@ -21,17 +21,6 @@ export default function BlogDetails() {
   }, [id]);
 
   const { title, image, shortdescription, longshortdescription } = details;
-  console.log(id);
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios(
-        `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
-      );
-      // console.log(data);
-      setComments(data);
-    };
-    getData();
-  }, [id]);
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -43,8 +32,7 @@ export default function BlogDetails() {
     const commenterPhoto = user?.photoURL;
     const comment = form.comment.value;
     const blogId = id;
-    const commentData = { comment, commenterName, commenterPhoto, id: blogId };
-    // console.log(comment, commenterName, commenterPhoto);
+    const commentData = { comment, commenterName, commenterPhoto, blogId };
 
     fetch(`${import.meta.env.VITE_API_URL}/blogdetails`, {
       method: "POST",
@@ -55,12 +43,22 @@ export default function BlogDetails() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.insertedId) {
           alert("Comment added SuccessFully!!");
         }
       });
   };
+
+  useEffect(() => {
+    const getCmntData = async () => {
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
+      );
+      // console.log(data);
+      setComments(data);
+    };
+    getCmntData();
+  }, [id]);
 
   return (
     <div className="flex flex-col gap-5 items-center">
