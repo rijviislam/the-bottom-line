@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Comment from "../../Components/Comment";
 import useAuth from "../../Hooks/useAuth";
 
 export default function BlogDetails() {
@@ -26,7 +27,8 @@ export default function BlogDetails() {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
       );
-      console.log(data);
+      // console.log(data);
+      setComments(data);
     };
     getData();
   }, [id]);
@@ -85,11 +87,9 @@ export default function BlogDetails() {
         </button>
       </form>
       <div>
-        {/* {comments?.map((comment) => (
+        {comments?.map((comment) => (
           <Comment key={comment._id} comment={comment} id={id} />
-        ))} */}
-        {comments.comment}
-        {comments.commenterName}
+        ))}
       </div>
     </div>
   );
