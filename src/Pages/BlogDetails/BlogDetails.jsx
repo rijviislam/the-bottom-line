@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Comment from "../../Components/Comment";
 import useAuth from "../../Hooks/useAuth";
 
 export default function BlogDetails() {
@@ -21,16 +20,16 @@ export default function BlogDetails() {
   }, [id]);
 
   const { title, image, shortdescription, longshortdescription } = details;
-
+  console.log(id);
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(
-        `${import.meta.env.VITE_API_URL}/blogdetails`
+        `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
       );
-      setComments(data);
+      console.log(data);
     };
     getData();
-  }, [user]);
+  }, [id]);
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -41,7 +40,8 @@ export default function BlogDetails() {
     const commenterName = user?.displayName;
     const commenterPhoto = user?.photoURL;
     const comment = form.comment.value;
-    const commentData = { comment, commenterName, commenterPhoto, id };
+    const blogId = id;
+    const commentData = { comment, commenterName, commenterPhoto, id: blogId };
     // console.log(comment, commenterName, commenterPhoto);
 
     fetch(`${import.meta.env.VITE_API_URL}/blogdetails`, {
@@ -85,9 +85,11 @@ export default function BlogDetails() {
         </button>
       </form>
       <div>
-        {comments?.map((comment) => (
+        {/* {comments?.map((comment) => (
           <Comment key={comment._id} comment={comment} id={id} />
-        ))}
+        ))} */}
+        {comments.comment}
+        {comments.commenterName}
       </div>
     </div>
   );
