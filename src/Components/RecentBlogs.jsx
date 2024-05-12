@@ -9,13 +9,15 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 export default function RecentBlogs() {
-  // const [recentBlog, setRecentBlog] = useState([]);
-
+  const { user } = useAuth();
+  const [recentBlog, setRecentBlog] = useState([]);
+  const email = user?.email;
   const {
     data: recentblog = [],
     isError,
@@ -32,13 +34,34 @@ export default function RecentBlogs() {
   }, []);
   const getData = async () => {
     const { data } = await axios(`${import.meta.env.VITE_API_URL}/recentblog`);
-    // setRecentBlog(data);
+    setRecentBlog(data);
     return data;
+  };
+
+  const handleWishlist = async (id) => {
+    const wishlist = recentBlog?.filter((blog) => blog._id === id);
+    const removeId = wishlist.map((list) => {
+      const { _id, ...rest } = list;
+      return { ...rest, email };
+    });
+    fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(removeId[0]),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          alert("Data was Added SuccessFully!!");
+        }
+      });
   };
 
   if (isLoading) return <Skeleton count={15} />;
   if (isError || error) {
-    console.log(isError, error);
+    alert(isError, error);
   }
   return (
     <div className="px-10 bg-sky-50">
@@ -79,6 +102,7 @@ export default function RecentBlogs() {
                     Details
                   </Link>
                   <Button
+                    onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
                     className="text-black border border-red-600"
                   >

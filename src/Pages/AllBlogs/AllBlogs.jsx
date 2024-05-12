@@ -75,11 +75,11 @@ export default function AllBlogs() {
       </p>
     );
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const text = e.target.search.value;
-    setSearch(text);
-  };
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   const text = e.target.search.value;
+  //   setSearch(text);
+  // };
   return (
     <div className="px-10 flex flex-col items-center">
       <div>All Blogs {filter.length}</div>
@@ -105,7 +105,7 @@ export default function AllBlogs() {
             </option>
           </select>
         </div>
-        <form onSubmit={handleSearch}>
+        <form>
           <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
             <input
               className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
