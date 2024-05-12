@@ -59,7 +59,7 @@ export default function Navbar() {
         <Link to="/">
           <img className="w-10 h-10 rounded-full mr-3" alt="" />
         </Link>
-        <a className="font-bold text-sm lg:text-xl ml-1">TheDaily Blog</a>
+        <a className="font-bold text-sm lg:text-xl ml-1">TheBottom Line</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navbar}</ul>

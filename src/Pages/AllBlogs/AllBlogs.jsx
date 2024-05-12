@@ -32,11 +32,7 @@ export default function AllBlogs() {
     getData();
   }, [filter, search]);
   const getData = async () => {
-    const { data } = await axios(
-      `${
-        import.meta.env.VITE_API_URL
-      }/allblogs?filter=${filter}&search=${search}`
-    );
+    const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
     return data;
   };
 
@@ -49,30 +45,23 @@ export default function AllBlogs() {
 
   const handleWishlist = async (id) => {
     const wishlist = allblogs?.filter((blog) => blog._id === id);
-
+    const removeId = wishlist.map((list) => {
+      const { _id, ...rest } = list;
+      return rest;
+    });
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(wishlist[0]),
+      body: JSON.stringify(removeId[0]),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        // if (data.insertedId === id) {
-        //   console.log("already added your wishlist");
-        //   return;
-        // }
-        // if (data.insertedId) {
-        //   console.log("Data was Added SuccessFully!!");
-        // } else {
-        //   console.warn("Unexpected response from server:", data);
-        // }
-        // if (data.error && data.error.code === 11000) {
-        //   alert("You can't add this Blog on you'r Wishlist right now!");
-        //   return;
-        // }
+        if (data.insertedId) {
+          console.log("Data was Added SuccessFully!!");
+        }
       });
   };
   if (isLoading) return <Spinner size="xl" />;

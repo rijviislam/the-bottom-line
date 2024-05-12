@@ -4,13 +4,14 @@ import {
   CardFooter,
   Divider,
   Heading,
-  Spinner,
   Stack,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Button, ButtonGroup } from "flowbite-react";
 import { useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 export default function RecentBlogs() {
   // const [recentBlog, setRecentBlog] = useState([]);
@@ -26,8 +27,6 @@ export default function RecentBlogs() {
     queryKey: ["recentblog"],
   });
 
-  console.log(recentblog);
-  console.log(isLoading);
   useEffect(() => {
     getData();
   }, []);
@@ -36,13 +35,16 @@ export default function RecentBlogs() {
     // setRecentBlog(data);
     return data;
   };
-  if (isLoading) return <Spinner size="xl" />;
+
+  if (isLoading) return <Skeleton count={15} />;
   if (isError || error) {
     console.log(isError, error);
   }
   return (
-    <div className="px-10">
-      <div>RecentBlogs {recentblog.length}</div>
+    <div className="px-10 bg-sky-50">
+      <div className="font-semibold text-center text-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 via-blue-500 to-green-400 bg-clip-text  text-4xl -500 py-6">
+        Our Recent Blogs
+      </div>
       <div
         className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
         key={recentblog._id}

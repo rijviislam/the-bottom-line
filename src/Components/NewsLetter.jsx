@@ -14,12 +14,12 @@ export default function NewsLetter() {
   };
   return (
     <div className=" text-center  flex flex-col items-center lg:py-5 lg:my-10">
-      <h2 className="text-5xl font-semibold">
+      <h2 className="  text-transparent bg-gradient-to-r from-red-400 via-orange-500 to-yellow-400 via-green-500 to-blue-400 bg-clip-text font-bold text-4xl">
         Subscribe To Our Newsletter <br /> And Be The First To Know
       </h2>
-      <p className="text-center">
-        Stay Ahead Of The Curve with TheDaily Blogs. <br /> Be The First To
-        Access Our New Blogs and Receive Exclusive Perks
+      <p className="text-center text-sm my-3">
+        Stay Ahead Of The Curve with TheDaily Blogs. Be The First To Access Our
+        New Blogs and Receive Exclusive Perks
       </p>
 
       <form
