@@ -51,7 +51,7 @@ export default function FeaturedBlogs() {
       <h2 className="text-4xl w-full text-center font-bold">
         Our Featured Blogs
       </h2>
-      <div className="border-2 my-5 border-silver w-4/5 shadow-xl">
+      <div className="border-2 my-5 border-silver w-4/5 shadow-xl rounded-xl">
         <table className=" w-full">
           <thead className="">
             <tr className="">

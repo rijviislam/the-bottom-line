@@ -10,6 +10,7 @@ export default function BlogDetails() {
   const { id } = useParams();
   const [details, setDetails] = useState([]);
   const [comments, setComments] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -44,13 +45,13 @@ export default function BlogDetails() {
         },
       });
     }
+
     const form = e.target;
     const commenterName = user?.displayName;
     const commenterPhoto = user?.photoURL;
     const comment = form.comment.value;
     const blogId = id;
     const commentData = { comment, commenterName, commenterPhoto, blogId };
-
     fetch(`${import.meta.env.VITE_API_URL}/blogdetails`, {
       method: "POST",
       headers: {
@@ -88,12 +89,11 @@ export default function BlogDetails() {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
       );
-      // console.log(data);
       setComments(data);
     };
     getCmntData();
   }, [id]);
-  console.log(details);
+
   return (
     <div className="flex flex-col gap-5 items-center">
       <h2 className="text-5xl">{title}</h2>

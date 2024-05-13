@@ -2,6 +2,7 @@ import { Tooltip } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import Logo from "../assets/writing.png";
 
 export default function MyNavbar() {
   const { user, logOutUser } = useContext(AuthContext);
@@ -11,22 +12,29 @@ export default function MyNavbar() {
       <li className="text-sm font-semibold">
         <Link to="/">Home</Link>
       </li>
-      <li className="text-sm font-semibold">
-        <Link to="/addblog">Add Blog</Link>
-      </li>
-
+      {user && (
+        <>
+          <li className="text-sm font-semibold">
+            <Link to="/addblog">Add Blog</Link>
+          </li>
+        </>
+      )}
       <li className="text-sm font-semibold">
         <Link to="/allblogs">All blogs</Link>
       </li>
       <li className="text-sm font-semibold">
         <Link to="/featuredblogs">Featured Blogs</Link>
       </li>
-      <li className="text-sm font-semibold">
-        <Link to="/wishlist">Wishlist</Link>
-      </li>
-      <li className="text-sm font-semibold">
-        <Link to="/myblogs">My Blogs</Link>
-      </li>
+      {user && (
+        <>
+          <li className="text-sm font-semibold">
+            <Link to="/wishlist">Wishlist</Link>
+          </li>
+          <li className="text-sm font-semibold">
+            <Link to="/myblogs">My Blogs</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -57,7 +65,7 @@ export default function MyNavbar() {
           </ul>
         </div>
         <Link to="/">
-          <img className="w-10 h-10 rounded-full mr-3" alt="" />
+          <img className="w-10 h-10 rounded-full mr-3" alt="" src={Logo} />
         </Link>
         <a className="font-bold text-sm lg:text-xl ml-1">TheBottom Line</a>
       </div>

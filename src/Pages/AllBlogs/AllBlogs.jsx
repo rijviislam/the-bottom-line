@@ -101,7 +101,7 @@ export default function AllBlogs() {
   // };
   return (
     <div className="px-10 flex flex-col items-center">
-      <div>All Blogs {blogs.length}</div>
+      <div className="text-3xl font-bold">All Blogs</div>
       <div className="flex justify-between  w-full my-5">
         {" "}
         <div>
@@ -140,10 +140,10 @@ export default function AllBlogs() {
           </div>
         </form>
       </div>
-      <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:mb-10">
         {allblogs?.map((blog) => (
-          <div key={blog._id}>
-            <Card maxW="sm" className="shadow-xl">
+          <div key={blog._id} className="">
+            <Card maxW="sm" className="shadow-xl h-[500px]">
               <CardBody>
                 <img
                   src={blog.image}
@@ -168,20 +168,20 @@ export default function AllBlogs() {
               <Divider />
               <CardFooter>
                 <ButtonGroup
-                  className="px-5 flex justify-between w-full pb-3"
+                  className="px-5 flex justify-between w-full pb-3 mt-5"
                   spacing="2"
                 >
                   <Link
                     to={`/blogdetails/${blog._id}`}
                     variant="solid"
-                    className="text-black border border-red-600"
+                    className="bg-amber-200 text-sm text-black font-medium flex items-center justify-center px-2 rounded-lg"
                   >
                     Details
                   </Link>
                   <Button
                     onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
-                    className="text-black border border-red-600"
+                    className="text-black bg-cyan-500"
                   >
                     Wishlist
                   </Button>

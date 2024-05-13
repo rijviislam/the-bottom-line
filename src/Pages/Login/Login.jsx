@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import SocialLogin from "../../Components/SocialLogin";
 
@@ -22,7 +23,23 @@ export default function Login() {
         reset();
       })
       .catch(() => {
-        alert("Authentication fails with your email and password");
+        Swal.fire({
+          title: "Authentication fails with your email and password",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        });
       });
   };
   useEffect(() => {

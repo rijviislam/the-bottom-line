@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 export default function RecentBlogs() {
   const { user } = useAuth();
@@ -42,7 +43,7 @@ export default function RecentBlogs() {
     const wishlist = recentBlog?.filter((blog) => blog._id === id);
     const removeId = wishlist.map((list) => {
       const { _id, ...rest } = list;
-      return { ...rest, email };
+      return { ...rest, wishlistuseremail: user?.email };
     });
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",
@@ -54,7 +55,23 @@ export default function RecentBlogs() {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          alert("Data was Added SuccessFully!!");
+          Swal.fire({
+            title: "Added on your Wishlist!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
         }
       });
   };
@@ -74,17 +91,30 @@ export default function RecentBlogs() {
       >
         {recentblog?.slice(0, 6).map((blog) => (
           <>
-            <Card maxW="sm" className="border-2 border-red-700 shadow-xl">
+            <Card
+              maxW="sm"
+              className="rounded-2xl shadow-xl border border-silver"
+            >
               <CardBody>
                 <img
-                  src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                  src={blog.image}
+                  className="w-full h-[250px] rounded-t-2xl"
                   alt="Green double couch with wooden legs"
                 />
                 <Stack mt="6" spacing="3" className="px-5 py-3">
-                  <Heading size="md">{blog.title}</Heading>
+                  <Heading size="md" className="font-semibold">
+                    {blog.title}
+                  </Heading>
                   <p>{blog.description}</p>
-                  <p color="blue.600" fontSize="2xl">
+                  <p
+                    className="badge-accent my-2 badge inline-flex font-semibold"
+                    color="blue.600"
+                    fontSize="2xl"
+                  >
                     {blog.category}
+                  </p>
+                  <p className="text-md font-normal">
+                    {blog.short_description}
                   </p>
                 </Stack>
               </CardBody>
@@ -96,15 +126,15 @@ export default function RecentBlogs() {
                 >
                   <Link
                     to={`/blogdetails/${blog._id}`}
-                    variant="solid"
-                    className="text-black border border-red-600"
+                    className="bg-orange-600 text-sm text-white font-medium flex items-center justify-center px-2 rounded-lg"
+                    appearance="primary"
                   >
                     Details
                   </Link>
                   <Button
                     onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
-                    className="text-black border border-red-600"
+                    className="text-black bg-cyan-500"
                   >
                     Wishlist
                   </Button>

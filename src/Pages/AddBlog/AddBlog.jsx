@@ -66,10 +66,10 @@ export default function AddBlog() {
     return <Skeleton count={5} />;
   }
   return (
-    <div className="flex bg-base-100 items-center justify-center lg:w-full my-5">
+    <div className="flex bg-base-100 items-center justify-center lg:w-full">
       <div className="flex flex-col items-center lg:w-10/12  p-6 rounded-md sm:p-10  text-gray-100 dark:text-gray-800 w-[360px]">
         <div className="mb-8 text-center w-full">
-          <h1 className="my-3 text-4xl font-bold dark:text-violet-600">
+          <h1 className="my-3 text-3xl font-bold dark:text-violet-600">
             Add your Blog
           </h1>
         </div>
