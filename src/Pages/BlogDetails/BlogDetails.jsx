@@ -66,6 +66,10 @@ export default function BlogDetails() {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          setComments((prevComments) => [
+            ...prevComments,
+            { ...commentData, _id: data.insertedId },
+          ]);
           Swal.fire({
             title: "Comment added SuccessFully!!",
             showClass: {
@@ -137,8 +141,8 @@ export default function BlogDetails() {
         ) : null}
       </form>
       <div>
-        {comments?.map((comment) => (
-          <Comment key={comment._id} comment={comment} id={id} />
+        {comments?.map((comment, idx) => (
+          <Comment key={idx} comment={comment} />
         ))}
       </div>
     </div>

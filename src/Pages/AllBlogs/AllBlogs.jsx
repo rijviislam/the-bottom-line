@@ -20,7 +20,7 @@ export default function AllBlogs() {
   const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
   const {
     data: allblogs = [],
     isError,
@@ -34,18 +34,12 @@ export default function AllBlogs() {
 
   useEffect(() => {
     getData();
-  }, [filter, search]);
+  }, []);
   const getData = async () => {
     const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
     setBlogs(data);
     return data;
   };
-  // const filterCategory = (categorys) => {
-  //   const blogs = allblogs.map((blog) => {
-  //     return blog.category === categorys;
-  //   });
-  //   setFilter(blogs);
-  // };
 
   const handleWishlist = async (id) => {
     const wishlist = allblogs?.filter((blog) => blog._id === id);
