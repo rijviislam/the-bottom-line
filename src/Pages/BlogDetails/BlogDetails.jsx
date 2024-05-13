@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Comment from "../../Components/Comment";
 import useAuth from "../../Hooks/useAuth";
@@ -10,7 +10,7 @@ export default function BlogDetails() {
   const { id } = useParams();
   const [details, setDetails] = useState([]);
   const [comments, setComments] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [updateBtn, setUpdateBtn] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -18,11 +18,15 @@ export default function BlogDetails() {
         `${import.meta.env.VITE_API_URL}/allblogs/${id}`
       );
       setDetails(data);
+      if (user?.email === details?.email) {
+        setUpdateBtn(true);
+      }
     };
-    getData();
-  }, [id]);
 
-  const { title, image, shortdescription, longshortdescription } = details;
+    getData();
+  }, [details?.email, id, user]);
+
+  const { _id, title, image, shortdescription, longshortdescription } = details;
 
   const handleComment = (e) => {
     e.preventDefault();
@@ -31,27 +35,27 @@ export default function BlogDetails() {
         title: "You Can not comment on own blog",
         showClass: {
           popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
+          animate__animated
+          animate__fadeInUp
+          animate__faster
           `,
         },
         hideClass: {
           popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
           `,
         },
       });
     }
-
     const form = e.target;
     const commenterName = user?.displayName;
     const commenterPhoto = user?.photoURL;
     const comment = form.comment.value;
     const blogId = id;
     const commentData = { comment, commenterName, commenterPhoto, blogId };
+
     fetch(`${import.meta.env.VITE_API_URL}/blogdetails`, {
       method: "POST",
       headers: {
@@ -89,11 +93,12 @@ export default function BlogDetails() {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
       );
+      // console.log(data);
       setComments(data);
     };
     getCmntData();
   }, [id]);
-
+  console.log(updateBtn);
   return (
     <div className="flex flex-col gap-5 items-center">
       <h2 className="text-5xl">{title}</h2>
@@ -120,6 +125,16 @@ export default function BlogDetails() {
         <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
           comment
         </button>
+        {updateBtn ? (
+          <>
+            <Link
+              to={`/updateblogpage/${_id}`}
+              className="ml-3 btn btn-primary"
+            >
+              Update
+            </Link>
+          </>
+        ) : null}
       </form>
       <div>
         {comments?.map((comment) => (

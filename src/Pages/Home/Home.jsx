@@ -1,3 +1,4 @@
+import AboutUs from "../../Components/AboutUs";
 import Hero from "../../Components/Hero";
 import NewsLetter from "../../Components/NewsLetter";
 import RecentBlogs from "../../Components/RecentBlogs";
@@ -10,6 +11,7 @@ export default function Home() {
       <RecentBlogs />
       <NewsLetter />
       <WriteForUs />
+      <AboutUs />
     </>
   );
 }
