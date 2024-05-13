@@ -14,8 +14,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import useAuth from "../../Hooks/useAuth";
 
 export default function AllBlogs() {
+  const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState([]);
   const [search, setSearch] = useState("");
@@ -38,7 +40,6 @@ export default function AllBlogs() {
     setBlogs(data);
     return data;
   };
-  console.log(blogs);
   // const filterCategory = (categorys) => {
   //   const blogs = allblogs.map((blog) => {
   //     return blog.category === categorys;
@@ -50,7 +51,7 @@ export default function AllBlogs() {
     const wishlist = allblogs?.filter((blog) => blog._id === id);
     const removeId = wishlist.map((list) => {
       const { _id, ...rest } = list;
-      return rest;
+      return { ...rest, wishlistuseremail: user?.email };
     });
     fetch(`${import.meta.env.VITE_API_URL}/wishlist`, {
       method: "POST",

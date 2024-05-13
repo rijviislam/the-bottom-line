@@ -1,5 +1,5 @@
 import useAuth from "../Hooks/useAuth";
-import Img from "../assets/react.svg";
+import Img from "../assets/google.png";
 
 export default function SocialLogin() {
   const { googleLogin } = useAuth();

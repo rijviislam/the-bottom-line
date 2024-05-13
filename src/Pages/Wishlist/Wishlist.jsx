@@ -15,20 +15,23 @@ import { Link } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 
 export default function Wishlist() {
-  // const { user } = useContext(AuthContext);
   const { user, loader } = useAuth();
   const [myWishlistBlogs, setMyWishlistBlogs] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const { data } = await axios(
-        `${import.meta.env.VITE_API_URL}/wishlist/${user?.email}`
-      );
-      console.log(data);
-      setMyWishlistBlogs(data);
+      if (user) {
+        const { data } = await axios(
+          `${import.meta.env.VITE_API_URL}/wishlist/${user.email}`
+        );
+        console.log(data);
+        setMyWishlistBlogs(data);
+      } else {
+        return alert("Not Data Found!");
+      }
     };
     getData();
   }, [user]);
-  console.log(myWishlistBlogs);
+
   const handleRemove = (_id) => {
     fetch(`${import.meta.env.VITE_API_URL}/wishlist/${_id}`, {
       method: "DELETE",
@@ -46,7 +49,7 @@ export default function Wishlist() {
   };
 
   if (loader) {
-    return <Skeleton count={5} />;
+    return <Skeleton count={15} />;
   }
 
   return (

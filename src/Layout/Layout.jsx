@@ -6,7 +6,9 @@ export default function Root() {
   return (
     <div>
       <MyNavbar />
-      <Outlet />
+      <div className="h-1/2 border border-red-800">
+        <Outlet />
+      </div>
       <FooterComponent />
     </div>
   );
