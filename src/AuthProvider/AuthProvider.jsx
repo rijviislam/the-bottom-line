@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -36,8 +37,28 @@ export default function AuthProvider({ children }) {
   //   OBSERVER USER IS HE/SHE LOGIN OR NOT //
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (observ) => {
+      const userEmail = observ?.email || user?.email;
+      const loggedUser = { email: userEmail };
+
       setUser(observ);
       setLoader(false);
+      if (observ) {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/jwt`, loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("Token send response!", res.data);
+          });
+      } else {
+        axios
+          .post(`${import.meta.env.VITE_API_URL}/logout`, loggedUser, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data);
+          });
+      }
     });
     return () => {
       unSubscribe();

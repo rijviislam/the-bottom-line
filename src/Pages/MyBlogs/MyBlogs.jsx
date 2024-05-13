@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Link } from "react-router-dom";
 import Table from "../../Components/Table";
 import useAuth from "../../Hooks/useAuth";
 
@@ -24,6 +25,18 @@ export default function MyBlogs() {
   console.log(myBlog);
   if (loader) {
     return <Skeleton count={5} />;
+  }
+  if (myBlog.length === 0) {
+    return (
+      <div className="flex flex-col items-center">
+        <p className="text-4xl text-center py-3 text-red-500 font-semibold">
+          You Don't have any Blogs{" "}
+        </p>
+        <Link to="/addblog" className="btn btn-active bg-emerald-500">
+          Add Blog
+        </Link>
+      </div>
+    );
   }
   return (
     <div>
