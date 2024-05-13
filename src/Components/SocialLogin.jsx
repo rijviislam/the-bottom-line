@@ -1,4 +1,5 @@
 import useAuth from "../Hooks/useAuth";
+import Img2 from "../assets/github.png";
 import Img from "../assets/google.png";
 
 export default function SocialLogin() {
@@ -23,7 +24,7 @@ export default function SocialLogin() {
           aria-label="Log in with GitHub"
           className="p-3 rounded-sm"
         >
-          <img className="w-8 h-8 object-contain" alt="" />
+          <img className="w-8 h-8 object-contain" src={Img2} alt="" />
         </button>
       </div>
     </>
