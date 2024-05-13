@@ -74,7 +74,7 @@ export default function FeaturedBlogs() {
                 <td className="border text-center p-3 font-semibold border-silver">
                   {blog.email}
                 </td>
-                <td className="border text-center p-3 font-semibold border-silver">
+                <td className="border text-center p-3 font-semibold border-silver hidden lg:visible md:visible sm:visible">
                   <img src={blog.photoURL} alt="Profile Pic" />
                 </td>
               </tr>

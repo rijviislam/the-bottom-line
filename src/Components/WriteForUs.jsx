@@ -1,6 +1,6 @@
 export default function WriteForUs() {
   return (
-    <div className="w-full text-center py-5">
+    <div className=" text-center py-5 px-10 lg:w-full md:w-full w-[360px]">
       <h2 className="text-4xl font-bold">WriteForUs</h2>
       <p className="text-start font-medium lg:px-10 lg:mt-5">
         Yes, you. We’re always looking for new authors. If you’ve got an idea

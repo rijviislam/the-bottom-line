@@ -13,11 +13,11 @@ export default function NewsLetter() {
     alert("Thank You for Subscribe!!");
   };
   return (
-    <div className=" text-center  flex flex-col items-center lg:py-5 lg:my-10">
-      <h2 className="  text-transparent bg-gradient-to-r from-red-400 via-orange-500 to-yellow-400 via-green-500 to-blue-400 bg-clip-text font-bold text-4xl">
+    <div className=" text-center  flex flex-col items-center lg:py-5 lg:my-10 py-5">
+      <h2 className="  text-transparent bg-gradient-to-r from-red-400 via-orange-500 to-yellow-400 via-green-500 to-blue-400 bg-clip-text font-bold lg:text-4xl md:text-2xl text-xl">
         Subscribe To Our Newsletter <br /> And Be The First To Know
       </h2>
-      <p className="text-center text-sm my-3">
+      <p className="text-center lg:text-sm text-xs my-3 lg:w-full w-[300px]">
         Stay Ahead Of The Curve with TheDaily Blogs. Be The First To Access Our
         New Blogs and Receive Exclusive Perks
       </p>

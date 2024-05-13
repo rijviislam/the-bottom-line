@@ -20,7 +20,7 @@ export default function AllBlogs() {
   const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
   const [filter, setFilter] = useState([]);
-  // const [search, setSearch] = useState("");
+  const [search, setSearch] = useState([]);
   const {
     data: allblogs = [],
     isError,
@@ -38,8 +38,17 @@ export default function AllBlogs() {
   const getData = async () => {
     const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
     setBlogs(data);
+    setSearch(data);
     return data;
   };
+  const handleSearch = (val) => {
+    // e.preventDefault();
+    const res = search.filter((fData) =>
+      fData.name?.toLowerCase().includes(val)
+    );
+    console.log(res);
+  };
+  // console.log(blogs);
 
   const handleWishlist = async (id) => {
     const wishlist = allblogs?.filter((blog) => blog._id === id);
@@ -88,15 +97,10 @@ export default function AllBlogs() {
       </p>
     );
 
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   const text = e.target.search.value;
-  //   setSearch(text);
-  // };
   return (
     <div className="px-10 flex flex-col items-center">
       <div className="text-3xl font-bold">All Blogs</div>
-      <div className="flex justify-between  w-full my-5">
+      <div className="flex  lg:flex-row md:flex-row flex-col-reverse justify-between  w-full my-5">
         {" "}
         <div>
           <select
@@ -119,13 +123,14 @@ export default function AllBlogs() {
           </select>
         </div>
         <form>
-          <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
+          <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300 sm:w-[300px]">
             <input
               className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
               type="text"
               name="search"
               placeholder="Enter Job Title"
               aria-label="Enter Job Title"
+              onChange={(e) => handleSearch(e.target.value)}
             />
 
             <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
@@ -135,7 +140,7 @@ export default function AllBlogs() {
         </form>
       </div>
       <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:mb-10">
-        {allblogs?.map((blog) => (
+        {blogs?.map((blog) => (
           <div key={blog._id} className="">
             <Card maxW="sm" className="shadow-xl h-[500px]">
               <CardBody>
