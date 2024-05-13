@@ -23,11 +23,12 @@ export default function Wishlist() {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/wishlist/${user?.email}`
       );
+      console.log(data);
       setMyWishlistBlogs(data);
     };
     getData();
   }, [user]);
-
+  console.log(myWishlistBlogs);
   const handleRemove = (_id) => {
     fetch(`${import.meta.env.VITE_API_URL}/wishlist/${_id}`, {
       method: "DELETE",

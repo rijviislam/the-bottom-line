@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import Comment from "../../Components/Comment";
 import useAuth from "../../Hooks/useAuth";
 
@@ -25,7 +26,23 @@ export default function BlogDetails() {
   const handleComment = (e) => {
     e.preventDefault();
     if (user?.email === details?.email) {
-      return alert("You Can not comment on own blog");
+      return Swal.fire({
+        title: "You Can not comment on own blog",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      });
     }
     const form = e.target;
     const commenterName = user?.displayName;
@@ -44,9 +61,26 @@ export default function BlogDetails() {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
-          alert("Comment added SuccessFully!!");
+          Swal.fire({
+            title: "Comment added SuccessFully!!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
         }
       });
+    form.reset();
   };
 
   useEffect(() => {
@@ -59,7 +93,7 @@ export default function BlogDetails() {
     };
     getCmntData();
   }, [id]);
-
+  console.log(details);
   return (
     <div className="flex flex-col gap-5 items-center">
       <h2 className="text-5xl">{title}</h2>
@@ -73,15 +107,18 @@ export default function BlogDetails() {
         {longshortdescription}
       </div>
 
-      <form onSubmit={handleComment} className="w-full">
+      <form
+        onSubmit={handleComment}
+        className="w-full mt-5 flex items-end justify-center"
+      >
         <textarea
           name="comment"
           id="comment"
-          className="w-[500px] border border-red-600 ml-20"
+          className="w-[500px] border-b  border-b-black outline-none  ml-20  resize-none"
         ></textarea>
 
         <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
-          Post comment
+          comment
         </button>
       </form>
       <div>

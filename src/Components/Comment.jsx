@@ -10,7 +10,7 @@ export default function Comment({ comment }) {
         />
         <p className="font-medium">{commenterName}</p>
       </div>
-      <h2 className="text-3xl">Comment {mycmnt}</h2>
+      <h2 className="text-sm">{mycmnt}</h2>
     </div>
   );
 }
