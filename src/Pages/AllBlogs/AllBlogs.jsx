@@ -117,7 +117,6 @@ export default function AllBlogs() {
         No Blog Avaiable right now!
       </p>
     );
-
   return (
     <div className="px-10 flex flex-col items-center">
       <div className="text-3xl font-bold">All Blogs</div>

@@ -10,7 +10,7 @@ export default function AddBlog() {
   // const { user } = useContext(AuthContext);
   const { user, loader } = useAuth();
   const email = user?.email;
-  const userImage = user?.photoURL;
+
   const [category, setCategory] = useState([]);
   const navigate = useNavigate();
   const {
@@ -20,22 +20,27 @@ export default function AddBlog() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const {
+    const { image, title, category, shortdescription, longdescription, email } =
+      data;
+    const postedTime = new Date();
+    const userImage = user?.photoURL;
+    const postData = {
+      postedTime,
+      userImage,
       image,
       title,
       category,
       shortdescription,
       longdescription,
       email,
-      userImage,
-    } = data;
+    };
 
     fetch(`${import.meta.env.VITE_API_URL}/allblogs`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(postData),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -172,6 +177,7 @@ export default function AddBlog() {
                   </option>
                 </select>
               </div>
+
               <div className="flex items-center gap-2">
                 <input
                   id="email"

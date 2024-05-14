@@ -18,11 +18,11 @@ import useAuth from "../Hooks/useAuth";
 export default function RecentBlogs() {
   const { user } = useAuth();
   const [recentBlog, setRecentBlog] = useState([]);
+  const [sortBlog, setSortBlog] = useState([]);
   const email = user?.email;
   const {
     data: recentblog = [],
     isError,
-    refetch,
     isLoading,
     error,
   } = useQuery({
@@ -38,6 +38,12 @@ export default function RecentBlogs() {
     setRecentBlog(data);
     return data;
   };
+  useEffect(() => {
+    const sorRecentBlog = recentBlog.sort(
+      (a, b) => new Date(b.postedTime) - new Date(a.postedTime)
+    );
+    setSortBlog(sorRecentBlog);
+  }, [recentBlog]);
 
   const handleWishlist = async (id) => {
     const wishlist = recentBlog?.filter((blog) => blog._id === id);
@@ -105,7 +111,7 @@ export default function RecentBlogs() {
         className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
         key={recentblog._id}
       >
-        {recentblog?.slice(0, 6).map((blog, idx) => (
+        {sortBlog?.map((blog, idx) => (
           <>
             <Card
               key={idx}
@@ -130,9 +136,7 @@ export default function RecentBlogs() {
                   >
                     {blog.category}
                   </p>
-                  <p className="text-md font-normal">
-                    {blog.short_description}
-                  </p>
+                  <p className="text-md font-normal">{blog.shortdescription}</p>
                 </Stack>
               </CardBody>
               <Divider />

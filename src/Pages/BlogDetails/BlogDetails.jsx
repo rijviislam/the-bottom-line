@@ -11,7 +11,7 @@ export default function BlogDetails() {
   const [details, setDetails] = useState([]);
   const [comments, setComments] = useState([]);
   const [updateBtn, setUpdateBtn] = useState(false);
-
+  console.log(id);
   useEffect(() => {
     const getData = async () => {
       const { data } = await axios(

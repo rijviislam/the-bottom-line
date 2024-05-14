@@ -21,7 +21,6 @@ export default function Update() {
     getData();
   }, [id]);
   const { register, handleSubmit } = useForm();
-
   const onSubmit = (data) => {
     const { title, category, shortdescription, longdescription } = data;
     fetch(`${import.meta.env.VITE_API_URL}/blogupdated/${_id}`, {
@@ -34,7 +33,6 @@ export default function Update() {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          // console.log(data);
           Swal.fire({
             title: "Blog was Updated SuccessFully!",
             showClass: {
@@ -60,13 +58,13 @@ export default function Update() {
 
   return (
     <div>
-      <div className="hero min-h-screen bg-base-200 my-5">
+      <div className="hero min-h-screen my-5">
         <div className="flex flex-col items-center">
           <h2 className="text-3xl mb-5 font-semibold">Update your product</h2>
           <div className="card shrink-0 w-full max-w-screen-md shadow-2xl bg-base-100">
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="card-body bg-slate-300 rounded-lg"
+              className="card-body shadow-xl border border-silver rounded-lg"
             >
               <div className="flex flex-col lg:flex-row gap-5 w-full">
                 <div className="form-control w-full lg:w-1/2">

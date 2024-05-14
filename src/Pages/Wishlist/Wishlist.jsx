@@ -3,13 +3,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Panel } from "rsuite";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 export default function Wishlist() {
   const { user, loader } = useAuth();
   const [myWishlistBlogs, setMyWishlistBlogs] = useState([]);
+  // const [detailsWishlist, setDetailsWishlist] = useState([]);
+  const { id } = useParams();
+  console.log(id);
+
   useEffect(() => {
     const getData = async () => {
       if (user) {
@@ -21,31 +25,40 @@ export default function Wishlist() {
         );
         setMyWishlistBlogs(data);
       } else {
-        return(
-
-          Swal.fire({
-            title: "Not Data Found!",
-            showClass: {
-              popup: `
+        return Swal.fire({
+          title: "Not Data Found!",
+          showClass: {
+            popup: `
                 animate__animated
                 animate__fadeInUp
                 animate__faster
               `,
-            },
-            hideClass: {
-              popup: `
+          },
+          hideClass: {
+            popup: `
                 animate__animated
                 animate__fadeOutDown
                 animate__faster
               `,
-            },
-          })
-        )
+          },
+        });
       }
     };
     getData();
   }, [user]);
 
+  // DETAILS //
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
+  //     return setDetailsWishlist(data);
+  //   };
+  //   detailsWishlist.map((details) => d);
+  //   getData();
+  // }, []);
+
+  // console.log(detailsWishlist);
+  //DETAILS END //
   const handleRemove = (_id) => {
     fetch(`${import.meta.env.VITE_API_URL}/wishlist/${_id}`, {
       method: "DELETE",
