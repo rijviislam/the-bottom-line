@@ -50,7 +50,6 @@ export default function FeaturedBlogs() {
       .slice(0, 10);
   };
   const tenBlog = getTopBlogs();
-  console.log(tenBlog);
   if (loader) {
     return <Skeleton count={15} />;
   }
@@ -65,7 +64,7 @@ export default function FeaturedBlogs() {
             <tr className="">
               {columns.map((column, idx) => (
                 <th
-                  // onClick={() => getTopBlogs()}
+                  onClick={() => getTopBlogs()}
                   className="cursor-pointer py-3"
                   key={idx}
                 >
@@ -86,7 +85,7 @@ export default function FeaturedBlogs() {
                 <td className="border text-center p-3 font-semibold border-silver">
                   {blog.email}
                 </td>
-                <td className="border text-center p-3 font-semibold border-silver hidden lg:visible md:visible sm:visible">
+                <td className="border text-center p-3 font-semibold border-silver">
                   <img src={blog.photoURL} alt="Profile Pic" />
                 </td>
               </tr>

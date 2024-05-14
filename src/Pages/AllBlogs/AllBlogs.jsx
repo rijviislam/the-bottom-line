@@ -42,14 +42,18 @@ export default function AllBlogs() {
     return data;
   };
   const handleSearch = (val) => {
-    // e.preventDefault();
     setSearch(val);
     const res = blogs.filter((fData) =>
       fData.title?.toLowerCase().includes(val.toLowerCase())
     );
     setFilterData(res);
   };
-  // console.log(blogs);
+  const handleFilteredCategory = (category) => {
+    const filterCatgory = blogs.filter((fBlog) => {
+      return fBlog.category === category;
+    });
+    setFilterData(filterCatgory);
+  };
 
   const handleWishlist = async (id) => {
     const wishlist = allblogs?.filter((blog) => blog._id === id);
@@ -105,20 +109,31 @@ export default function AllBlogs() {
         {" "}
         <div>
           <select
-            //  onChange={(e) => setFilter(e.target.value)}
-
-            // value={filter}
             name="category"
             id="category"
             className="border p-4 rounded-lg"
+            onChange={(event) => handleFilteredCategory(event.target.value)}
           >
             <option value="">Filter By Category</option>
-            <option value="Travel">Travel</option>
-            <option value="Health and Fitness">Health and Fitness</option>
-            <option value="Finance">Finance</option>
-            <option value="Technology">Technology</option>
-            <option value="Photography">Photography</option>
-            <option value="Education and Learning">
+            <option name="Travel" value="Travel">
+              Travel
+            </option>
+            <option name="Health and Fitness" value="Health and Fitness">
+              Health and Fitness
+            </option>
+            <option name="Finance" value="Finance">
+              Finance
+            </option>
+            <option name="Technology" value="Technology">
+              Technology
+            </option>
+            <option name="Photography" value="Photography">
+              Photography
+            </option>
+            <option
+              name="Education and Learning"
+              value="Education and Learning"
+            >
               Education and Learning
             </option>
           </select>
@@ -126,15 +141,15 @@ export default function AllBlogs() {
         <form>
           <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300 sm:w-[300px]">
             <input
-              className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
+              className="px-4 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
               type="text"
               name="search"
-              placeholder="Enter Job Title"
+              placeholder="Enter Blog Title"
               aria-label="Enter Job Title"
               onChange={(e) => handleSearch(e.target.value)}
             />
 
-            <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
+            <button className="px-1 md:px-2 py-2 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
               Search
             </button>
           </div>
