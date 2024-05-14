@@ -125,8 +125,7 @@ export default function Register() {
       });
   };
   return (
-    <div className="flex w-full gap-5 items-center justify-center my-10 md:px-7 flex-col lg:flex-row md:flex-row">
-      <img className="w-[50%]" alt="" />
+    <div className="flex w-full gap-5 items-center justify-center my-10 md:px-7 ">
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-[#6C63FF] text-gray-100">
         <h1 className="text-2xl font-bold text-center">Register Now!</h1>
         <form

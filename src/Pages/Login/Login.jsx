@@ -49,7 +49,7 @@ export default function Login() {
   }, [user]);
   return (
     <div className="flex w-full items-center justify-center my-10 md:px-5">
-      <div className="w-[1000px] flex flex-col lg:flex-row md:flex-row  px-5">
+      <div className="w-[1000px] flex items-center justify-center px-5">
         <div className="lg:w-1/2 lg:rounded-r-lg max-w-md h-[500px] bg-slate-300 p-8 space-y-3  text-black rounded-t-xl">
           <h1 className="text-2xl font-bold text-center text-violet-600">
             Login Now!
