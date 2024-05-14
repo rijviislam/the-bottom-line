@@ -19,7 +19,7 @@ import useAuth from "../../Hooks/useAuth";
 export default function AllBlogs() {
   const { user } = useAuth();
   const [blogs, setBlogs] = useState([]);
-  const [filter, setFilter] = useState([]);
+  const [filterData, setFilterData] = useState([]);
   const [search, setSearch] = useState([]);
   const {
     data: allblogs = [],
@@ -38,15 +38,16 @@ export default function AllBlogs() {
   const getData = async () => {
     const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
     setBlogs(data);
-    setSearch(data);
+    setFilterData(data);
     return data;
   };
   const handleSearch = (val) => {
     // e.preventDefault();
-    const res = search.filter((fData) =>
-      fData.name?.toLowerCase().includes(val)
+    setSearch(val);
+    const res = blogs.filter((fData) =>
+      fData.title?.toLowerCase().includes(val.toLowerCase())
     );
-    console.log(res);
+    setFilterData(res);
   };
   // console.log(blogs);
 
@@ -140,7 +141,7 @@ export default function AllBlogs() {
         </form>
       </div>
       <div className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:mb-10">
-        {blogs?.map((blog) => (
+        {filterData?.map((blog) => (
           <div key={blog._id} className="">
             <Card maxW="sm" className="shadow-xl h-[500px]">
               <CardBody>

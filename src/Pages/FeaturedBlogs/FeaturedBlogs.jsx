@@ -43,6 +43,14 @@ export default function FeaturedBlogs() {
     };
     getData();
   }, []);
+  // CALL THIS FUNCTION IN ONCLICK
+  const getTopBlogs = () => {
+    return featureBlog
+      .sort((a, b) => b.shortdescription.length - a.shortdescription.length)
+      .slice(0, 10);
+  };
+  const tenBlog = getTopBlogs();
+  console.log(tenBlog);
   if (loader) {
     return <Skeleton count={15} />;
   }
@@ -56,7 +64,11 @@ export default function FeaturedBlogs() {
           <thead className="">
             <tr className="">
               {columns.map((column, idx) => (
-                <th className=" py-3" key={idx}>
+                <th
+                  // onClick={() => getTopBlogs()}
+                  className="cursor-pointer py-3"
+                  key={idx}
+                >
                   {column.header}
                 </th>
               ))}
