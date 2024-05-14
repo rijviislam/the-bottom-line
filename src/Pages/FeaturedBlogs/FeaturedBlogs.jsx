@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import useAuth from "../../Hooks/useAuth";
 export default function FeaturedBlogs() {
-  const { user, loader } = useAuth();
+  const { loader } = useAuth();
   const [featureBlog, setFeatureBlog] = useState([]);
   const data = useMemo(() => featureBlog, [featureBlog]);
 
@@ -50,43 +50,47 @@ export default function FeaturedBlogs() {
       .slice(0, 10);
   };
   const tenBlog = getTopBlogs();
+  console.log(featureBlog);
   if (loader) {
     return <Skeleton count={15} />;
   }
   return (
-    <div className="flex flex-col items-center">
-      <h2 className="text-4xl w-full text-center font-bold">
+    <div className="flex flex-col items-center justify-center">
+      <h2 className="text-3xl w-full text-center font-bold">
         Our Featured Blogs
       </h2>
-      <div className="border-2 my-5 border-silver w-4/5 shadow-xl rounded-xl">
-        <table className=" w-full">
+      <div className="container mx-auto flex items-center justify-center my-5">
+        <table>
           <thead className="">
             <tr className="">
               {columns.map((column, idx) => (
                 <th
-                  onClick={() => getTopBlogs()}
-                  className="cursor-pointer py-3"
                   key={idx}
+                  className="cursor-pointer py-3 border px-4 text-left"
                 >
                   {column.header}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="border border-purple-600">
+          <tbody>
             {data.map((blog, idx) => (
-              <tr key={idx} className="">
-                <td className="border text-center font-medium border-silver">
-                  {idx + 1}
-                </td>
-                <td className="border text-center p-3 font-semibold border-silver">
-                  {blog.title}
-                </td>
-                <td className="border text-center p-3 font-semibold border-silver">
+              <tr key={idx}>
+                <td className="border px-4 py-2 text-center">{idx + 1}</td>
+                <td className="border px-4 py-2 text-center">{blog.title}</td>
+                <td
+                  className={`border px-4 py-2 text-center flex items-center justify-center ${
+                    screen.sm ? "360px" : "hidden-sm"
+                  }`}
+                >
                   {blog.email}
                 </td>
-                <td className="border text-center p-3 font-semibold border-silver">
-                  <img src={blog.photoURL} alt="Profile Pic" />
+                <td className="border px-4 py-2 text-center">
+                  <img
+                    src={blog.userImage}
+                    className="w-[40px] h-[40px] rounded-full"
+                    alt="Profile Pic"
+                  />
                 </td>
               </tr>
             ))}

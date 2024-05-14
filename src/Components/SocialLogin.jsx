@@ -19,11 +19,7 @@ export default function SocialLogin() {
           />
         </button>
 
-        <button
-          //   onClick={() => githubLogin()}
-          aria-label="Log in with GitHub"
-          className="p-3 rounded-sm"
-        >
+        <button aria-label="Log in with GitHub" className="p-3 rounded-sm">
           <img className="w-8 h-8 object-contain" src={Img2} alt="" />
         </button>
       </div>

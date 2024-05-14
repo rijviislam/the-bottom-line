@@ -97,12 +97,10 @@ export default function BlogDetails() {
       const { data } = await axios(
         `${import.meta.env.VITE_API_URL}/blogdetails/${id}`
       );
-      // console.log(data);
       setComments(data);
     };
     getCmntData();
   }, [id]);
-
   return (
     <div className="flex flex-col gap-5 items-center">
       <h2 className="text-3xl font-semibold">{title}</h2>

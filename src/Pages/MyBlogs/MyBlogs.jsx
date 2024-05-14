@@ -23,7 +23,6 @@ export default function MyBlogs() {
     const filteredMyBlogs = blogs.filter((blog) => blog.email === email);
     setMyBlog(filteredMyBlogs);
   }, [blogs, email]);
-  // console.log(myBlog);
   if (loader) {
     return <Skeleton count={5} />;
   }

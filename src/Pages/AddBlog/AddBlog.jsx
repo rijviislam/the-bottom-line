@@ -7,7 +7,6 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 
 export default function AddBlog() {
-  // const { user } = useContext(AuthContext);
   const { user, loader } = useAuth();
   const email = user?.email;
 
@@ -20,8 +19,14 @@ export default function AddBlog() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    const { image, title, category, shortdescription, longdescription, email } =
-      data;
+    const {
+      image,
+      title,
+      category,
+      shortdescription,
+      longshortdescription,
+      email,
+    } = data;
     const postedTime = new Date();
     const userImage = user?.photoURL;
     const postData = {
@@ -31,7 +36,7 @@ export default function AddBlog() {
       title,
       category,
       shortdescription,
-      longdescription,
+      longshortdescription,
       email,
     };
 
@@ -140,14 +145,14 @@ export default function AddBlog() {
               </div>
               <div>
                 <div className="flex justify-between mb-2">
-                  <label htmlFor="longdescription" className="text-sm">
+                  <label htmlFor="longshortdescription" className="text-sm">
                     Long Description
                   </label>
                 </div>
                 <textarea
-                  type="longdescription"
-                  name="longdescription"
-                  id="longdescription"
+                  type="longshortdescription"
+                  name="longshortdescription"
+                  id="longshortdescription"
                   placeholder="Long Description"
                   className="w-full h-[100px] px-3 py-2 border rounded-md border-gray-700 dark:border-gray-300 bg-gray-900 dark:bg-gray-50 text-gray-100 dark:text-gray-800 outline-none resize-none"
                   {...register("longshortdescription", { required: true })}

@@ -111,7 +111,7 @@ export default function RecentBlogs() {
         className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
         key={recentblog._id}
       >
-        {sortBlog?.map((blog, idx) => (
+        {sortBlog?.slice(0, 6).map((blog, idx) => (
           <>
             <Card
               key={idx}
