@@ -9,7 +9,7 @@ export default function NewsLetter() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     reset();
     Swal.fire({
       title: "Thank You for Subscribe!!",

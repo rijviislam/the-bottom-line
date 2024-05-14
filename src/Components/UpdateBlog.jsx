@@ -34,7 +34,7 @@ export default function Update() {
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
-          console.log(data);
+          // console.log(data);
           Swal.fire({
             title: "Blog was Updated SuccessFully!",
             showClass: {

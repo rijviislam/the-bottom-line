@@ -105,9 +105,10 @@ export default function RecentBlogs() {
         className="grid lg:gap-8 md:gap-5 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1"
         key={recentblog._id}
       >
-        {recentblog?.slice(0, 6).map((blog) => (
+        {recentblog?.slice(0, 6).map((blog, idx) => (
           <>
             <Card
+              key={idx}
               maxW="sm"
               className="rounded-2xl shadow-xl border border-silver"
             >
