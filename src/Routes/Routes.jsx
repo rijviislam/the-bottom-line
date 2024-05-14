@@ -73,7 +73,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/updateblogpage/:id",
-        element: <UpdateBlog />,
+        element: (
+          <PrivateRoute>
+            <UpdateBlog />
+          </PrivateRoute>
+        ),
       },
     ],
   },
