@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 export default function Register() {
   const { createUser, updateImageAndName, setReload } = useContext(AuthContext);
@@ -15,16 +16,80 @@ export default function Register() {
     const { name, email, password, image } = data;
     setRegError("");
     if (!/^.{6,}$/.test(password)) {
-      return alert("Password must be at least 6 characters long");
+      return Swal.fire({
+        title: "Password must be at least 6 characters long",
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+        },
+      });
     }
     if (!/[A-Z]/.test(password)) {
-      return alert("Password must contain at least one uppercase letter");
+      return Swal.fire({
+        title: "Password must contain at least one uppercase letter",
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+        },
+      });
     }
     if (!/[!@#$%^&*]/.test(password)) {
-      return alert("Password must contain at least one special character");
+      return Swal.fire({
+        title: "Password must contain at least one special character",
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+        },
+      });
     }
     if (!/\d/.test(password)) {
-      return alert("Password must contain at least one numeric character");
+      return Swal.fire({
+        title: "Password must contain at least one numeric character",
+        showClass: {
+          popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+        },
+        hideClass: {
+          popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+        },
+      });
     }
 
     createUser(email, password)
@@ -39,7 +104,23 @@ export default function Register() {
       .catch((error) => {
         setRegError(error.message);
         if (regError) {
-          alert("Can't Register with this email and password!");
+          Swal.fire({
+            title: "Can't Register with this email and password!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          });
         }
       });
   };

@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 export default function NewsLetter() {
   const {
@@ -10,7 +11,23 @@ export default function NewsLetter() {
   const onSubmit = (data) => {
     console.log(data);
     reset();
-    alert("Thank You for Subscribe!!");
+    Swal.fire({
+      title: "Thank You for Subscribe!!",
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+    });
   };
   return (
     <div className=" text-center  flex flex-col items-center lg:py-5 lg:my-10 py-5">

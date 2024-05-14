@@ -21,7 +21,26 @@ export default function Wishlist() {
         );
         setMyWishlistBlogs(data);
       } else {
-        return alert("Not Data Found!");
+        return(
+
+          Swal.fire({
+            title: "Not Data Found!",
+            showClass: {
+              popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+              `,
+            },
+            hideClass: {
+              popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+              `,
+            },
+          })
+        )
       }
     };
     getData();

@@ -93,7 +93,23 @@ export default function AllBlogs() {
   };
   if (isLoading) return <Skeleton count={15} />;
   if (isError || error) {
-    alert(isError, error);
+    Swal.fire({
+      title: (isError, error),
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+    });
   }
   if (allblogs.length === 0)
     return (

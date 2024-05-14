@@ -102,23 +102,27 @@ export default function BlogDetails() {
     };
     getCmntData();
   }, [id]);
-  console.log(updateBtn);
+
   return (
     <div className="flex flex-col gap-5 items-center">
-      <h2 className="text-5xl">{title}</h2>
-      <img className="w-[800px] h-[400px] object-cover" src={image} alt="" />
-      <div className="w-full  lg:px-20">
+      <h2 className="text-3xl font-semibold">{title}</h2>
+      <img
+        className="lg:w-[800px] lg:h-[400px] md:w-[500px] w-[300px] h-[300px] object-cover"
+        src={image}
+        alt=""
+      />
+      <div className="lg:w-full md:w-[600px] w-[300px]  lg:px-20">
         <strong className="text-xl">Short Description:</strong>
         {shortdescription}
       </div>
-      <div className="w-full  lg:px-20">
+      <div className="lg:w-full md:w-[600px] w-[300px] lg:px-20">
         <strong className="text-xl">Description:</strong>
         {longshortdescription}
       </div>
 
       <form
         onSubmit={handleComment}
-        className="w-full mt-5 flex items-end justify-center"
+        className="lg:w-full w-[300px] mt-5 flex items-end justify-center"
       >
         <textarea
           name="comment"

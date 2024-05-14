@@ -34,7 +34,7 @@ export default function RecentBlogs() {
     getData();
   }, []);
   const getData = async () => {
-    const { data } = await axios(`${import.meta.env.VITE_API_URL}/recentblog`);
+    const { data } = await axios(`${import.meta.env.VITE_API_URL}/allblogs`);
     setRecentBlog(data);
     return data;
   };
@@ -78,7 +78,23 @@ export default function RecentBlogs() {
 
   if (isLoading) return <Skeleton count={15} />;
   if (isError || error) {
-    alert(isError, error);
+    Swal.fire({
+      title: (isError, error),
+      showClass: {
+        popup: `
+          animate__animated
+          animate__fadeInUp
+          animate__faster
+        `,
+      },
+      hideClass: {
+        popup: `
+          animate__animated
+          animate__fadeOutDown
+          animate__faster
+        `,
+      },
+    });
   }
   return (
     <div className="px-10 bg-sky-50">
