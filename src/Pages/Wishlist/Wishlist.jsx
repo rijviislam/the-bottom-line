@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Panel } from "rsuite";
 import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
@@ -11,8 +11,8 @@ export default function Wishlist() {
   const { user, loader } = useAuth();
   const [myWishlistBlogs, setMyWishlistBlogs] = useState([]);
   // const [detailsWishlist, setDetailsWishlist] = useState([]);
-  const { id } = useParams();
-  console.log(id);
+  // const { id } = useParams();
+  // console.log(id);
 
   useEffect(() => {
     const getData = async () => {

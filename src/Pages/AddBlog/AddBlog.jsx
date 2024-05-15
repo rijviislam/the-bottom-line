@@ -79,7 +79,7 @@ export default function AddBlog() {
     <div className="flex bg-base-100 items-center justify-center lg:w-full">
       <div className="flex flex-col items-center lg:w-10/12  p-6 rounded-md sm:p-10  text-gray-100 dark:text-gray-800 w-[360px]">
         <div className="mb-8 text-center w-full">
-          <h1 className="my-3 text-3xl font-bold dark:text-violet-600">
+          <h1 className="my-3 text-transparent bg-gradient-to-r from-yellow-400 via-orange-500 to-red-400 bg-clip-text font-bold lg:text-4xl md:text-2xl  text-3xl">
             Add your Blog
           </h1>
         </div>

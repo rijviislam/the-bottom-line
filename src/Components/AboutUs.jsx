@@ -1,11 +1,30 @@
+import { motion } from "framer-motion";
 import About from "../assets/about.svg";
 export default function AboutUs() {
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <img src={About} className="lg:max-w-xl rounded-lg shadow-2xl" />
-        <div>
-          <h1 className="text-5xl font-bold">AboutUs</h1>
+        <motion.img
+          initial={{ x: 1000 }}
+          animate={{ x: 0 }}
+          transition={{
+            duration: "2",
+            delay: "1",
+          }}
+          src={About}
+          className="lg:max-w-xl rounded-lg shadow-2xl"
+        />
+        <motion.div
+          initial={{ x: -1000 }}
+          animate={{ x: 0 }}
+          transition={{
+            duration: "2",
+            delay: "1",
+          }}
+        >
+          <h1 className="text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-400 via-green-500 to-teal-400 bg-clip-text font-bold lg:text-4xl md:text-2xl text-xl">
+            AboutUs
+          </h1>
           <p className="py-6 text-sm font-medium">
             {" "}
             Welcome to TheBottom Line, your one-stop destination for inspiring
@@ -21,7 +40,7 @@ export default function AboutUs() {
             knowledge!
           </p>
           <button className="btn btn-primary">Get in touch!</button>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

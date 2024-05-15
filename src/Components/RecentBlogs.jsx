@@ -104,7 +104,7 @@ export default function RecentBlogs() {
   }
   return (
     <div className="px-10 bg-sky-50">
-      <div className="text-center text-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 via-blue-500 to-green-400 bg-clip-text font-extrabold text-3xl -500 py-6">
+      <div className="text-center text-transparent bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 via-blue-500 to-green-400 bg-clip-text font-bold text-3xl  py-6">
         Our Recent Blogs
       </div>
       <div

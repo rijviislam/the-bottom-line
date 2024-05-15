@@ -71,6 +71,7 @@ export default function AllBlogs() {
       .then((res) => res.json())
       .then((data) => {
         if (data.insertedId) {
+          console.log(data);
           Swal.fire({
             title: "Added on your Wishlist!",
             showClass: {
@@ -208,7 +209,9 @@ export default function AllBlogs() {
                   >
                     Details
                   </Link>
+
                   <Button
+                    disabled={!user}
                     onClick={() => handleWishlist(blog._id)}
                     variant="ghost"
                     className="text-black bg-cyan-500"

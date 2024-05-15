@@ -4,8 +4,8 @@ export default function Comment({ comment }) {
   }
   const { comment: cmnt, commenterName, commenterPhoto } = comment;
   return (
-    <div>
-      <div className="flex gap-2">
+    <div className="mb-5">
+      <div className="flex gap-2 ">
         <img
           src={commenterPhoto}
           className="w-[50px] h-[50px] rounded-full"
@@ -13,7 +13,7 @@ export default function Comment({ comment }) {
         />
         <p className="font-medium">{commenterName}</p>
       </div>
-      <h2 className="text-sm">{cmnt}</h2>
+      <h2 className="text-sm ml-10 mt-3">{cmnt}</h2>
     </div>
   );
 }
