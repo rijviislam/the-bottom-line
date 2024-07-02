@@ -67,8 +67,8 @@ To get a local copy of this project up and running, follow these steps:
 4. **Set up Firebase and MongoDB configurations:**
 - Create a firebaseConfig.js file in the src/config directory (if not already present)
 - Add your Firebase configuration
-  ```// src/config/firebaseConfig.js
- const firebaseConfig = {
+  // src/config/firebaseConfig.js
+  const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
   authDomain: "YOUR_AUTH_DOMAIN",
   projectId: "YOUR_PROJECT_ID",
