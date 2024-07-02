@@ -76,8 +76,9 @@ To get a local copy of this project up and running, follow these steps:
   messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
   appId: "YOUR_APP_ID"
 };
-
 export default firebaseConfig;
+
+
 5. **MongoDB**
 - Create a .env file in the root directory of your project
 - Add your MongoDB configuration
