@@ -51,7 +51,7 @@ To get a local copy of this project up and running, follow these steps:
 1. **Clone the repository** or **download the ZIP file**:
    - **Clone**:
      ```bash
-     https://github.com/Porgramming-Hero-web-course/b9a11-client-side-rijviislam.git
+     https://github.com/rijviislam/the-bottom-line.git
      ```
    - **Download ZIP**:
      - Click on the green "Code" button at the top right of this repository.
